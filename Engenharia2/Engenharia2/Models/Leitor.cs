@@ -11,10 +11,10 @@ namespace Engenharia2.Models
         private string nome;
         private string cpf;
         private string endereco;
-        private string dataNasc;
+        private DateTime dataNasc;
         private Atendente atendente;
 
-        public Leitor(int id, string nome, string cpf, string endereco, string dataNasc, Atendente atendente)
+        public Leitor(int id, string nome, string cpf, string endereco, DateTime dataNasc, Atendente atendente)
         {
             this.id = id;
             this.nome = nome;
@@ -28,7 +28,7 @@ namespace Engenharia2.Models
         public string Nome { get => nome; set => nome = value; }
         public string Cpf { get => cpf; set => cpf = value; }
         public string Endereco { get => endereco; set => endereco = value; }
-        public string DataNasc { get => dataNasc; set => dataNasc = value; }
+        public DateTime DataNasc { get => dataNasc; set => dataNasc = value; }
         public Atendente Atendente { get => atendente; set => atendente = value; }
     }
 }
