@@ -20,6 +20,14 @@ namespace Engenharia2.Models
             this.telefone = telefone;
         }
 
+        public Atendente()
+        {
+            this.id = 0;
+            this.nome = "";
+            this.endereco = "";
+            this.telefone = "";
+        }
+
         public int Id { get => id; set => id = value; }
         public string Nome { get => nome; set => nome = value; }
         public string Endereco { get => endereco; set => endereco = value; }
