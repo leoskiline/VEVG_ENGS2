@@ -21,6 +21,14 @@ namespace Engenharia2.Models
             this.Telefone = telefone;
             this.Administrador = administrador;
         }
+        public Editora()
+        {
+            this.Id = 0;
+            this.Nome = "";
+            this.Descricao = "";
+            this.Telefone = "";
+            this.Administrador = null;
+        }
 
         public int Id { get => id; set => id = value; }
         public string Nome { get => nome; set => nome = value; }

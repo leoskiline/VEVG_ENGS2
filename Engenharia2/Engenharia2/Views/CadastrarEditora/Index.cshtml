@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Cadastrar Editora";
+}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Pagina Cadastro de Editora</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="~/Home">Home</a></li>
+                    <li class="breadcrumb-item active">Cadastro de Editora</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="nome">Nome:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="nome" placeholder="Digite o Nome da Editora">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="descricao">Descricao:</label>
+                    <div class="col-sm-7">
+                        <textarea class="form-control" id="descricao" placeholder="Digite uma Breve Descricao"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="telefone">Telefone:</label>
+                    <div class="col-sm-2">
+                        <input type="tel" class="form-control" id="telefone" placeholder="Digite o Telefone" maxlength="11">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-success" onclick="indexEditora.enviar()">Cadastrar</button>
+                    </div><br />
+                    <div class="col-sm-3" id="gravou"></div>
+                </div>
+
+            </form>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+@section javascript {
+    <script src="~/js/views/editora/Index.js"></script>
+    <script src="~/lib/HTTPClient.js"></script>
+}
