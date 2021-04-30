@@ -18,6 +18,13 @@ namespace Engenharia2.Models
             this.Administrador = administrador;
         }
 
+        public Autor()
+        {
+            this.Id = 0;
+            this.Nome = "";
+            this.Administrador = null;
+        }
+
         public int Id { get => id; set => id = value; }
         public string Nome { get => nome; set => nome = value; }
         public Administrador Administrador { get => administrador; set => administrador = value; }

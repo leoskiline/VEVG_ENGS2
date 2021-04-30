@@ -24,6 +24,16 @@ namespace Engenharia2.Models
             this.atendente = atendente;
         }
 
+        public Leitor()
+        {
+            this.id = 0;
+            this.nome = "";
+            this.cpf = "";
+            this.endereco = "";
+            this.dataNasc = Convert.ToDateTime("01/01/2000");
+            this.atendente = null;
+        }
+
         public int Id { get => id; set => id = value; }
         public string Nome { get => nome; set => nome = value; }
         public string Cpf { get => cpf; set => cpf = value; }
