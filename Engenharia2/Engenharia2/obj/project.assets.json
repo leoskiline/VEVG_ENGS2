@@ -6973,19 +6973,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\gcgon\\.nuget\\packages\\": {}
+    "C:\\Users\\diozn\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gcgon\\OneDrive\\Área de Trabalho\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\Engenharia2.csproj",
+      "projectUniqueName": "C:\\Users\\diozn\\Documents\\GitHub\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\Engenharia2.csproj",
       "projectName": "Engenharia2",
-      "projectPath": "C:\\Users\\gcgon\\OneDrive\\Área de Trabalho\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\Engenharia2.csproj",
-      "packagesPath": "C:\\Users\\gcgon\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gcgon\\OneDrive\\Área de Trabalho\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\obj\\",
+      "projectPath": "C:\\Users\\diozn\\Documents\\GitHub\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\Engenharia2.csproj",
+      "packagesPath": "C:\\Users\\diozn\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\diozn\\Documents\\GitHub\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\gcgon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\diozn\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7042,7 +7042,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
