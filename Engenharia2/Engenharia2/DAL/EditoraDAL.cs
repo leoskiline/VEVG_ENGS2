@@ -1,5 +1,6 @@
 ﻿using Engenharia2.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,6 +28,17 @@ namespace Engenharia2.DAL
                 msg = "Editora " + editora.Nome + " Gravada com Sucesso!";
             }
             return msg;
+        }
+
+        //Seleção simples de lista
+        public List<Editora> selecionar()
+        {
+            List<Editora> editora = new List<Editora>();
+            string sql = "SELECT * FROM editora";          
+
+            editora = (List<Editora>)_bd.ExecutarConsultaSimples(sql);
+
+            return editora;
         }
     }
 }

@@ -15,6 +15,10 @@ namespace Engenharia2.Models
         private Autor autor;
         private Administrador administrador;
 
+        public Livro()
+        {
+
+        }
         public Livro(int id, string nome, Exemplar exemplar, Editora editora, Reserva reserva, Autor autor, Administrador administrador)
         {
             this.Id = id;
