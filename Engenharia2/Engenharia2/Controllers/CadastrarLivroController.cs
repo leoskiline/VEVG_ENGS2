@@ -33,6 +33,8 @@ namespace Engenharia2.Controllers
 
             livro.Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos");
 
+            livrodal.gravar(livro);
+
             return Json(new
             {
                 msg

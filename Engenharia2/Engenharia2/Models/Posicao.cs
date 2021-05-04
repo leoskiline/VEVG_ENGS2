@@ -11,6 +11,10 @@ namespace Engenharia2.Models
         private string setor;
         private string prateleira;
 
+        public Posicao()
+        {
+        }
+
         public Posicao(int id, string setor, string prateleira)
         {
             this.Id = id;

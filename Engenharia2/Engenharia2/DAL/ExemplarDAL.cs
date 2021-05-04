@@ -11,6 +11,36 @@ namespace Engenharia2.DAL
     {
         MySQLPersistence _bd = new MySQLPersistence();
 
+        public string gravar(Exemplar ex)
+        {
+            string msg = "Falha ao Gravar Exemplar";
+            string sql = "INSERT INTO posicao (setor, prateleira) VALUES (@setor,@prateleira)";
+            _bd.AdicionarParametro("@setor", ex.Posicao.Setor);
+            _bd.AdicionarParametro("@prateleira", ex.Posicao.Prateleira);
+            
+            _bd.AbrirConexao();
+            int rows = _bd.ExecutarNonQuery(sql);
+
+            sql = "SELECT max(id) FROM posicao";
+            _bd.LimparParametros();
+
+            DataTable dt = _bd.ExecutarSelect(sql);
+            ex.Posicao.Id = Convert.ToInt32(dt.Rows[0]["id"]);
+
+            sql = "INSERT INTO exemplar (qtd, posicaoId) VALUES (@qtd,@pos)";
+            _bd.AdicionarParametro("@qtd", ex.Qtd.ToString());
+            _bd.AdicionarParametro("@pos", ex.Posicao.Id.ToString());
+
+
+            _bd.FecharConexao();
+
+            if (rows > 0)
+            {
+                msg = "Exemplar Gravado com Sucesso!";
+            }
+            return msg;
+        }
+
         public Exemplar BuscaExemplar(string nome)
         {
             string sql = "SELECT * FROM exemplar WHERE nome=@nome";
