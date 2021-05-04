@@ -13,6 +13,11 @@ namespace Engenharia2.Models
         private string endereco;
         private string telefone;
 
+        public Administrador()
+        {
+
+        }
+
         public Administrador(int id, string nome, string cpf, string endereco, string telefone)
         {
             this.Id = id;

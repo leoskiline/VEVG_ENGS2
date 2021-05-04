@@ -11,6 +11,10 @@ namespace Engenharia2.Models
         private int qtd;
         private Posicao posicao;
 
+        public Exemplar()
+        {
+
+        }
         public Exemplar(int id, int qtd, Posicao posicao)
         {
             this.Id = id;

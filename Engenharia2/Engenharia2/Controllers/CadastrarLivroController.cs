@@ -19,13 +19,20 @@ namespace Engenharia2.Controllers
             string msg = "Falha ao Gravar Livro!";
             
             LivroDAL livrodal = new LivroDAL();
+            
+
             Livro livro = new Livro();
 
             livro.Nome = dados.GetProperty("nome").ToString();
 
-            livro.Exemplar = dados.GetProperty("exemplar") //@TODO EXEMPLAR
+           // livro.Exemplar = new ExemplarDAL().BuscaExemplar(dados.GetProperty("exemplar").ToString()); //@TODO EXEMPLAR
 
-         
+            livro.Editora = new EditoraDAL().BuscaEditora(dados.GetProperty("editora").ToString());
+
+            livro.Reserva = null;
+
+            livro.Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos");
+
             return Json(new
             {
                 msg

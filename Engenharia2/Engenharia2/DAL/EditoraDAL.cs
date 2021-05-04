@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -39,6 +40,34 @@ namespace Engenharia2.DAL
             editora = (List<Editora>)_bd.ExecutarConsultaSimples(sql);
 
             return editora;
+        }
+
+        public Editora BuscaEditora(string nome)
+        {
+            string sql = "SELECT * FROM editora WHERE nome=@nome";
+            _bd.LimparParametros();
+            _bd.AdicionarParametro("@nome", nome);
+            _bd.AbrirConexao();
+
+            DataTable dt = _bd.ExecutarSelect(sql);
+            Editora editora = null;
+
+            if (dt.Rows.Count > 0)
+            {
+                editora = new Editora();
+
+                AdministradorDAL adm = new AdministradorDAL();  
+                editora.Id = Convert.ToInt32(dt.Rows[0]["id"]);
+                editora.Nome = dt.Rows[0]["nome"].ToString();
+                editora.Descricao = dt.Rows[0]["descricao"].ToString();
+                editora.Telefone = dt.Rows[0]["telefone"].ToString();
+                editora.Administrador = adm.obter("Leonardo Custodio dos Santos");
+
+            }
+
+            return editora;
+
+
         }
     }
 }
