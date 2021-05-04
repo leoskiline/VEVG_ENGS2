@@ -14,9 +14,8 @@ namespace Engenharia2.DAL
         public string gravar(Livro livro)
         {
             string msg = "Falha ao Gravar Livro";
-            string sql = "INSERT INTO livro (nome,exemplar,editora,reserva,autor) VALUES (@nome,@exemplar,@editora,@reserva,@autor)";
+            string sql = "INSERT INTO livro (nome,exemplar,editora,reserva,autor) VALUES (@nome,@editora,@reserva,@autor)";
             _bd.AdicionarParametro("@nome", livro.Nome);
-            _bd.AdicionarParametro("@exemplar", livro.Exemplar.Id.ToString());
             _bd.AdicionarParametro("@editora", livro.Editora.Id.ToString());
             AdministradorDAL admDal = new AdministradorDAL();
             _bd.AdicionarParametro("@administradorId", admDal.obterIdPorNome("Leonardo Custodio dos Santos").ToString());
@@ -39,6 +38,16 @@ namespace Engenharia2.DAL
             editora = (List<Livro>)_bd.ExecutarConsultaSimples(sql);
 
             return editora;
+        }
+
+        public Livro seleciona(int id){
+            string sql = "SELECT * FROM livro where id="+id;          
+
+            List<Livro> l = (List<Livro>)_bd.ExecutarConsultaSimples(sql);
+            
+            if (l.Count > 0)
+                return l.Get(0);
+            return null;            
         }
     }
 }

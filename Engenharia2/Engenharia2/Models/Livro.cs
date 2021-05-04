@@ -19,11 +19,10 @@ namespace Engenharia2.Models
         {
 
         }
-        public Livro(int id, string nome, Exemplar exemplar, Editora editora, Reserva reserva, Autor autor, Administrador administrador)
+        public Livro(int id, string nome, Editora editora, Reserva reserva, Autor autor, Administrador administrador)
         {
             this.Id = id;
             this.Nome = nome;
-            this.Exemplar = exemplar;
             this.Editora = editora;
             this.Reserva = reserva;
             this.Autor = autor;

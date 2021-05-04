@@ -26,6 +26,7 @@ namespace Engenharia2.Controllers
 
             ex.Qtd = Convert.ToInt32(dados.GetProperty("qtd"));
             ex.Posicao = new Posicao(){
+                Livro = new LivroDAL().seleciona(Convert.ToInt32(dados.GetProperty("livroId"))),
                 Setor = dados.GetProperty("setorPos").ToString(),
                 Prateleira = dados.GetProperty("prateleiraPos").ToString() 
             };

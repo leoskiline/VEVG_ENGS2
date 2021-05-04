@@ -1,10 +1,11 @@
-﻿let indexLeitor = {
+﻿let indexExemplar = {
 
 
     enviar: () => {
 
         let dados = {
             qtd: document.getElementById("qtd").value,
+            livroId: $("#livroId:selected").val(),
             setor: document.getElementById("setorPos").value,
             prateleira: document.getElementById("prateleiraPos").value
         }

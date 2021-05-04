@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Cadastrar Exemplar";
+    var livros = new LivroDAL().selecionar();
 }
 <div class="content-header">
     <div class="container-fluid">
@@ -23,6 +24,15 @@
         <div class="">
             <form>
                 <div class="form-group">
+                    <label class="control-label col-sm-2">Livro:</label>
+                    <div class="col-sm-2">
+                        <select id="livroId" name="livroId">
+                            @foreach (var x in livros)
+                                {<option value="@x.Id">@x.Nome</option>}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label col-sm-2" for="qtd">Quantidade:</label>
                     <div class="col-sm-2">
                         <input class="form-control" type="number" id="qtd" placeholder="Digite o a qtd">
@@ -39,6 +49,12 @@
                     <div class="col-sm-2">
                         <input type="text" class="form-control" id="prateleiraPos">
                     </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-success" onclick="indexExemplar.enviar()">Cadastrar</button>
+                    </div><br />
+                    <div class="col-sm-3" id="gravou"></div>
                 </div>
             </form>
         </div>
