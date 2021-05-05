@@ -21,19 +21,18 @@ namespace Engenharia2.Controllers
             LivroDAL livrodal = new LivroDAL();
             
 
-            Livro livro = new Livro();
-
-            livro.Nome = dados.GetProperty("nome").ToString();
-
-           // livro.Exemplar = new ExemplarDAL().BuscaExemplar(dados.GetProperty("exemplar").ToString()); //@TODO EXEMPLAR
-
-            livro.Editora = new EditoraDAL().BuscaEditora(dados.GetProperty("editora").ToString());
-
-            livro.Reserva = null;
-
-            livro.Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos");
-
-            livrodal.gravar(livro);
+            Livro livro = null;
+            if(dados.GetProperty("nome").ToString().Length>0 && dados.GetProperty("autor").ToString().Length>0 && dados.GetProperty("editora").ToString().Length>0)
+            {
+                AutorDAL autordal = new AutorDAL();
+                livro = new Livro();
+                livro.Nome = dados.GetProperty("nome").ToString();
+                livro.Autor = autordal.BuscaAutorPorNome(dados.GetProperty("autor").ToString());
+                livro.Editora = new EditoraDAL().BuscaEditora(dados.GetProperty("editora").ToString());
+                livro.Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos");
+            }
+            if(livro != null)
+                msg = livrodal.gravar(livro);
 
             return Json(new
             {

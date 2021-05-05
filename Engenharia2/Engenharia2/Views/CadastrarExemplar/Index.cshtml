@@ -1,6 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Cadastrar Exemplar";
-    var livros = new LivroDAL().selecionar();
 }
 <div class="content-header">
     <div class="container-fluid">
@@ -19,23 +18,22 @@
 </div>
 <!-- /.content-header -->
 <!-- Main content -->
-<div class="content">
+<div class="content" onload="listarLivro.init()">
     <div class="container-fluid">
         <div class="">
             <form>
                 <div class="form-group">
                     <label class="control-label col-sm-2">Livro:</label>
                     <div class="col-sm-2">
-                        <select id="livroId" name="livroId">
-                            @foreach (var x in livros)
-                                {<option value="@x.Id">@x.Nome</option>}
+                        <select class="custom-select" id="livroId" name="livroId">
+                            <!-- Carregado por Ajax -->
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="qtd">Quantidade:</label>
                     <div class="col-sm-2">
-                        <input class="form-control" type="number" id="qtd" placeholder="Digite o a qtd">
+                        <input class="form-control" type="number" id="qtd" placeholder="Digite a Quantidade">
                     </div>
                 </div>
                 <div class="form-group">
@@ -63,6 +61,7 @@
 </div>
 
 @section javascript {
+    <script src="~/js/views/exemplar/ListarLivros.js"></script>
     <script src="~/js/views/exemplar/Index.js"></script>
     <script src="~/lib/HTTPClient.js"></script>
 }

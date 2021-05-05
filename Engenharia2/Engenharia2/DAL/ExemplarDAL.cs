@@ -14,24 +14,13 @@ namespace Engenharia2.DAL
         public string gravar(Exemplar ex)
         {
             string msg = "Falha ao Gravar Exemplar";
-            string sql = "INSERT INTO posicao (setor, prateleira) VALUES (@setor,@prateleira)";
-            _bd.AdicionarParametro("@setor", ex.Posicao.Setor);
-            _bd.AdicionarParametro("@prateleira", ex.Posicao.Prateleira);
-            
+            string sql = "insert into exemplar (qtd,posicaoId,livroId) VALUES (@qtd,@posicaoId,@livroId)";
+            _bd.LimparParametros();
+            _bd.AdicionarParametro("@qtd", ex.Qtd.ToString());
+            _bd.AdicionarParametro("@posicaoId", ex.Posicao.Id.ToString());
+            _bd.AdicionarParametro("@livroId", ex.Livro.Id.ToString());
             _bd.AbrirConexao();
             int rows = _bd.ExecutarNonQuery(sql);
-
-            sql = "SELECT max(id) FROM posicao";
-            _bd.LimparParametros();
-
-            DataTable dt = _bd.ExecutarSelect(sql);
-            ex.Posicao.Id = Convert.ToInt32(dt.Rows[0]["id"]);
-
-            sql = "INSERT INTO exemplar (qtd, posicaoId) VALUES (@qtd,@pos)";
-            _bd.AdicionarParametro("@qtd", ex.Qtd.ToString());
-            _bd.AdicionarParametro("@pos", ex.Posicao.Id.ToString());
-
-
             _bd.FecharConexao();
 
             if (rows > 0)

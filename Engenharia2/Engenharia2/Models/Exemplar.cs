@@ -16,17 +16,18 @@ namespace Engenharia2.Models
         {
 
         }
-        public Exemplar(int id, Livro livro, int qtd, Posicao posicao)
+
+        public Exemplar(int id, int qtd, Livro livro, Posicao posicao)
         {
             this.Id = id;
-            this.livro = livro;
             this.Qtd = qtd;
+            this.Livro = livro;
             this.Posicao = posicao;
         }
 
         public int Id { get => id; set => id = value; }
-        public Livro livro { get => livro; set => livro = value; }
         public int Qtd { get => qtd; set => qtd = value; }
+        public Livro Livro { get => livro; set => livro = value; }
         public Posicao Posicao { get => posicao; set => posicao = value; }
     }
 }

@@ -69,5 +69,33 @@ namespace Engenharia2.DAL
 
 
         }
+
+        public Editora BuscaEditoraPorId(int id)
+        {
+            string sql = "SELECT * FROM editora WHERE id=@id";
+            _bd.LimparParametros();
+            _bd.AdicionarParametro("@id", id.ToString());
+            _bd.AbrirConexao();
+
+            DataTable dt = _bd.ExecutarSelect(sql);
+            Editora editora = null;
+
+            if (dt.Rows.Count > 0)
+            {
+                editora = new Editora();
+
+                AdministradorDAL adm = new AdministradorDAL();
+                editora.Id = Convert.ToInt32(dt.Rows[0]["id"]);
+                editora.Nome = dt.Rows[0]["nome"].ToString();
+                editora.Descricao = dt.Rows[0]["descricao"].ToString();
+                editora.Telefone = dt.Rows[0]["telefone"].ToString();
+                editora.Administrador = adm.obter("Leonardo Custodio dos Santos");
+
+            }
+
+            return editora;
+
+
+        }
     }
 }
