@@ -38,8 +38,8 @@ namespace Engenharia2.DAL
             _bd.LimparParametros();
             _bd.AdicionarParametro("@id", id.ToString());
             _bd.AbrirConexao();
-
             DataTable dt = _bd.ExecutarSelect(sql);
+            _bd.FecharConexao();
             Autor autor = null;
             AdministradorDAL adm = new AdministradorDAL();
             if(dt.Rows.Count > 0)
@@ -63,8 +63,8 @@ namespace Engenharia2.DAL
             _bd.LimparParametros();
             _bd.AdicionarParametro("@nome", nome);
             _bd.AbrirConexao();
-
             DataTable dt = _bd.ExecutarSelect(sql);
+            _bd.FecharConexao();
             Autor autor = null;
             AdministradorDAL adm = new AdministradorDAL();
             if (dt.Rows.Count > 0)

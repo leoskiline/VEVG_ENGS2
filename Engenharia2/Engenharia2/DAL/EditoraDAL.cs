@@ -35,10 +35,10 @@ namespace Engenharia2.DAL
         public List<Editora> selecionar()
         {
             List<Editora> editora = new List<Editora>();
-            string sql = "SELECT * FROM editora";          
-
+            string sql = "SELECT * FROM editora";
+            _bd.AbrirConexao();
             editora = (List<Editora>)_bd.ExecutarConsultaSimples(sql);
-
+            _bd.FecharConexao();
             return editora;
         }
 
@@ -48,10 +48,9 @@ namespace Engenharia2.DAL
             _bd.LimparParametros();
             _bd.AdicionarParametro("@nome", nome);
             _bd.AbrirConexao();
-
             DataTable dt = _bd.ExecutarSelect(sql);
+            _bd.FecharConexao();
             Editora editora = null;
-
             if (dt.Rows.Count > 0)
             {
                 editora = new Editora();
@@ -76,8 +75,8 @@ namespace Engenharia2.DAL
             _bd.LimparParametros();
             _bd.AdicionarParametro("@id", id.ToString());
             _bd.AbrirConexao();
-
             DataTable dt = _bd.ExecutarSelect(sql);
+            _bd.FecharConexao();
             Editora editora = null;
 
             if (dt.Rows.Count > 0)

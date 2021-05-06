@@ -36,10 +36,9 @@ namespace Engenharia2.DAL
             _bd.LimparParametros();
             _bd.AdicionarParametro("@nome", nome);
             _bd.AbrirConexao();
-
             DataTable dt = _bd.ExecutarSelect(sql);
+            _bd.FecharConexao();
             Exemplar exemplar = null;
-
             if(dt.Rows.Count > 0)
             {
                 exemplar = new Exemplar();
