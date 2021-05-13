@@ -15,17 +15,20 @@ namespace Engenharia2.DAL
         public string gravar(Livro livro)
         {
             string msg = "Falha ao Gravar Livro";
-            string sql = "INSERT INTO livro (nome,editoraId,autorId,administradorId) VALUES (@nome,@editoraId,@autorId,@administradorId)";
+            string sql = "INSERT INTO livro (Nome,Editora_idEditora,Administrador_idAdministrador,qtd) VALUES (@nome,@editoraId,@administradorId,@qtd);Select @@IDENTITY;";
+            string sql2 = "INSERT INTO livro_has_autor (Livro_idLivro,Autor_idAutor) VALUES (@livroId,@autorId)";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@nome", livro.Nome);
-            _bd.AdicionarParametro("@editoraId", livro.Editora.Id.ToString());
-            _bd.AdicionarParametro("@autorId", livro.Autor.Id.ToString());
-            AdministradorDAL admDal = new AdministradorDAL();
-            _bd.AdicionarParametro("@administradorId", admDal.obterIdPorNome("Leonardo Custodio dos Santos").ToString());
+            _bd.AdicionarParametro("@editoraId", new EditoraDAL().BuscaEditoraPorId(livro.Editora.Id).Id.ToString());
+            _bd.AdicionarParametro("@autorId", new AutorDAL().BuscaAutorPorId(livro.Autor.Id).Id.ToString());
+            _bd.AdicionarParametro("@administradorId", new AdministradorDAL().obterIdPorNome("Leonardo Custodio dos Santos").ToString());
+            _bd.AdicionarParametro("@qtd", livro.Qtd.ToString());
             _bd.AbrirConexao();
-            int rows =  _bd.ExecutarNonQuery(sql);
+            livro.Id = _bd.ExecutarNonQueryAndGetID(sql);
+            _bd.AdicionarParametro("@livroId", livro.Id.ToString());
+            int rows2 = _bd.ExecutarNonQuery(sql2);
             _bd.FecharConexao();
-            if(rows > 0)
+            if(livro.Id != 0 && rows2 > 0)
             {
                 msg = "Livro " + livro.Nome + " Gravado com Sucesso!";
             }
@@ -45,9 +48,9 @@ namespace Engenharia2.DAL
             {
                 var livro = new Livro()
                 {
-                    Id = Convert.ToInt32(row["id"]),
+                    Id = Convert.ToInt32(row["idLivro"]),
                     Nome = row["nome"].ToString(),
-                    Editora = edal.BuscaEditoraPorId(Convert.ToInt32(row["id"])),
+                    Editora = edal.BuscaEditoraPorId(Convert.ToInt32(row["Editora_idEditora"])),
 
                 };
                 livros.Add(livro);

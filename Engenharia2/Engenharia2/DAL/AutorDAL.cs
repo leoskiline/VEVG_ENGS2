@@ -14,7 +14,7 @@ namespace Engenharia2.DAL
         public string gravar(Autor autor)
         {
             string msg = "Falha ao Gravar Autor";
-            string sql = "INSERT INTO autor (nome,administradorId) VALUES (@nome,@administradorId)";
+            string sql = "INSERT INTO autor (nome,Administrador_idAdministrador) VALUES (@nome,@administradorId)";
 
             _bd.AdicionarParametro("@nome", autor.Nome);
 
@@ -34,7 +34,7 @@ namespace Engenharia2.DAL
 
         public Autor BuscaAutorPorId(int id)
         {
-            string sql = "SELECT * FROM autor WHERE id=@id";
+            string sql = "SELECT * FROM autor WHERE idAutor=@id";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@id", id.ToString());
             _bd.AbrirConexao();
@@ -46,7 +46,7 @@ namespace Engenharia2.DAL
             {
                 autor = new Autor()
                 {
-                    Id = Convert.ToInt32(dt.Rows[0]["id"]),
+                    Id = Convert.ToInt32(dt.Rows[0]["idAutor"]),
                     Nome = dt.Rows[0]["nome"].ToString(),
                     Administrador = adm.obter("Leonardo Custodio dos Santos")
                 };
@@ -71,15 +71,34 @@ namespace Engenharia2.DAL
             {
                 autor = new Autor()
                 {
-                    Id = Convert.ToInt32(dt.Rows[0]["id"]),
+                    Id = Convert.ToInt32(dt.Rows[0]["idAutor"]),
                     Nome = dt.Rows[0]["nome"].ToString(),
                     Administrador = adm.obter("Leonardo Custodio dos Santos")
                 };
             }
 
             return autor;
+        }
 
+        public List<Autor> selecionarTodos()
+        {
+            List<Autor> autores = new List<Autor>();
+            string sql = "SELECT * FROM autor";
+            _bd.AbrirConexao();
+            DataTable dt = _bd.ExecutarSelect(sql);
+            _bd.FecharConexao();
+            foreach (DataRow row in dt.Rows)
+            {
+                var autor = new Autor()
+                {
+                    Id = Convert.ToInt32(row["idAutor"]),
+                    Nome = row["nome"].ToString(),
+                    Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos")
 
+                };
+                autores.Add(autor);
+            }
+            return autores;
         }
     }
 }

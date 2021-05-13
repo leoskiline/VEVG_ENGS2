@@ -14,14 +14,14 @@ namespace Engenharia2.DAL
         public int obterIdPorNome(string nome)
         {
             int id = 0;
-            string sql = "SELECT id FROM administrador WHERE nome = @nome";
+            string sql = "SELECT idAdministrador FROM administrador WHERE nome = @nome";
             _bd.AdicionarParametro("@nome", nome);
             _bd.AbrirConexao();
             DataTable admin = _bd.ExecutarSelect(sql);
             _bd.FecharConexao();
             if(admin.Rows.Count > 0)
             {
-                id = Convert.ToInt32(admin.Rows[0]["id"]);                 
+                id = Convert.ToInt32(admin.Rows[0]["idAdministrador"]);                 
             }
             return id;
         }
@@ -38,7 +38,7 @@ namespace Engenharia2.DAL
             {
                 adm = new Administrador()
                 {
-                    Id = Convert.ToInt32(admin.Rows[0]["id"]),
+                    Id = Convert.ToInt32(admin.Rows[0]["idAdministrador"]),
                     Nome = admin.Rows[0]["nome"].ToString(),
                     Cpf = admin.Rows[0]["cpf"].ToString(),
                     Endereco = admin.Rows[0]["endereco"].ToString(),

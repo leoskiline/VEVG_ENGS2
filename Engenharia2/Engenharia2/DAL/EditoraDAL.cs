@@ -15,7 +15,7 @@ namespace Engenharia2.DAL
         public string gravar(Editora editora)
         {
             string msg = "Falha ao Gravar Editora";
-            string sql = "INSERT INTO editora (nome,descricao,telefone,administradorId) VALUES (@nome,@descricao,@telefone,@administradorId)";
+            string sql = "INSERT INTO editora (nome,descricao,telefone,Administrador_idAdministrador) VALUES (@nome,@descricao,@telefone,@administradorId)";
             _bd.AdicionarParametro("@nome", editora.Nome);
             _bd.AdicionarParametro("@descricao", editora.Descricao);
             _bd.AdicionarParametro("@telefone", editora.Telefone);
@@ -32,14 +32,27 @@ namespace Engenharia2.DAL
         }
 
         //Seleção simples de lista
-        public List<Editora> selecionar()
+        public List<Editora> selecionarTodos()
         {
-            List<Editora> editora = new List<Editora>();
+            List<Editora> editoras = new List<Editora>();
             string sql = "SELECT * FROM editora";
             _bd.AbrirConexao();
-            editora = (List<Editora>)_bd.ExecutarConsultaSimples(sql);
+            DataTable dt = _bd.ExecutarSelect(sql);
             _bd.FecharConexao();
-            return editora;
+            foreach (DataRow row in dt.Rows)
+            {
+                var editora = new Editora()
+                {
+                    Id = Convert.ToInt32(row["idEditora"]),
+                    Nome = row["nome"].ToString(),
+                    Descricao = row["descricao"].ToString(),
+                    Telefone = row["telefone"].ToString(),
+                    Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos")
+
+                };
+                editoras.Add(editora);
+            }
+            return editoras;
         }
 
         public Editora BuscaEditora(string nome)
@@ -56,7 +69,7 @@ namespace Engenharia2.DAL
                 editora = new Editora();
 
                 AdministradorDAL adm = new AdministradorDAL();  
-                editora.Id = Convert.ToInt32(dt.Rows[0]["id"]);
+                editora.Id = Convert.ToInt32(dt.Rows[0]["idEditora"]);
                 editora.Nome = dt.Rows[0]["nome"].ToString();
                 editora.Descricao = dt.Rows[0]["descricao"].ToString();
                 editora.Telefone = dt.Rows[0]["telefone"].ToString();
@@ -71,7 +84,7 @@ namespace Engenharia2.DAL
 
         public Editora BuscaEditoraPorId(int id)
         {
-            string sql = "SELECT * FROM editora WHERE id=@id";
+            string sql = "SELECT * FROM editora WHERE idEditora=@id";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@id", id.ToString());
             _bd.AbrirConexao();
@@ -84,7 +97,7 @@ namespace Engenharia2.DAL
                 editora = new Editora();
 
                 AdministradorDAL adm = new AdministradorDAL();
-                editora.Id = Convert.ToInt32(dt.Rows[0]["id"]);
+                editora.Id = Convert.ToInt32(dt.Rows[0]["idEditora"]);
                 editora.Nome = dt.Rows[0]["nome"].ToString();
                 editora.Descricao = dt.Rows[0]["descricao"].ToString();
                 editora.Telefone = dt.Rows[0]["telefone"].ToString();

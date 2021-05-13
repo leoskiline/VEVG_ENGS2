@@ -54,6 +54,21 @@ namespace Engenharia2.DAL
             return rows;
         }
 
+        public int ExecutarNonQueryAndGetID(string sql, Dictionary<string, object> parametros = null)
+        {
+            _comando.CommandText = sql;
+            if (parametros != null)
+            {
+                foreach (var item in parametros)
+                {
+                    _comando.Parameters.AddWithValue(item.Key, item.Value);
+                }
+            }
+
+            int id = Convert.ToInt32(_comando.ExecuteScalar());
+            return id;
+        }
+
         public void AdicionarParametro(string param, string valor)
         {
             _comando.Parameters.AddWithValue(param, valor);

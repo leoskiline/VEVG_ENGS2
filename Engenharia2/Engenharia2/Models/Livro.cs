@@ -14,6 +14,7 @@ namespace Engenharia2.Models
         private Reserva reserva;
         private Autor autor;
         private Administrador administrador;
+        private int qtd;
 
         public Livro()
         {
@@ -36,5 +37,6 @@ namespace Engenharia2.Models
         public Reserva Reserva { get => reserva; set => reserva = value; }
         public Autor Autor { get => autor; set => autor = value; }
         public Administrador Administrador { get => administrador; set => administrador = value; }
+        public int Qtd { get => qtd; set => qtd = value; }
     }
 }

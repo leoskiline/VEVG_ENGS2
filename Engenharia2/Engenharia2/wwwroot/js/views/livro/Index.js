@@ -2,14 +2,13 @@
 
 
     enviar: () => {
-
+        document.getElementById("gravando").innerHTML = "Gravando... Aguarde!";
         let dados = {
-            nome: document.getElementById("nome").value,            
-            editora: document.getElementById("editora").value,            
-            autor: document.getElementById("autor").value
-
+            nome: document.getElementById("nome").value,    
+            editora: document.getElementById("editoraId").value,            
+            autor: document.getElementById("autorId").value,
+            qtd: document.getElementById("qtd").value
         }
-
         HTTPClient.post("/CadastrarLivro/Gravar", dados)
             .then(result => {
                 return result.json();
@@ -27,11 +26,7 @@
             .catch(() => {
                 console.log("Falha ao Gravar");
             });
-
-
+        document.getElementById("gravando").innerHTML = "";
     },
 
 }
-
-
-
