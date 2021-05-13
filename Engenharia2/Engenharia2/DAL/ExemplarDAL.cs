@@ -14,9 +14,8 @@ namespace Engenharia2.DAL
         public string gravar(Exemplar ex)
         {
             string msg = "Falha ao Gravar Exemplar";
-            string sql = "insert into exemplar (qtd,posicaoId,livroId) VALUES (@qtd,@posicaoId,@livroId)";
+            string sql = "insert into exemplar (Posicao_idPosicao,Livro_idLivro) VALUES (@posicaoId,@livroId)";
             _bd.LimparParametros();
-            _bd.AdicionarParametro("@qtd", ex.Qtd.ToString());
             _bd.AdicionarParametro("@posicaoId", ex.Posicao.Id.ToString());
             _bd.AdicionarParametro("@livroId", ex.Livro.Id.ToString());
             _bd.AbrirConexao();
@@ -30,11 +29,11 @@ namespace Engenharia2.DAL
             return msg;
         }
 
-        public Exemplar BuscaExemplar(string nome)
+        public Exemplar BuscaExemplar(int id)
         {
-            string sql = "SELECT * FROM exemplar WHERE nome=@nome";
+            string sql = "SELECT * FROM exemplar WHERE idExemplar=@id";
             _bd.LimparParametros();
-            _bd.AdicionarParametro("@nome", nome);
+            _bd.AdicionarParametro("@id", id.ToString());
             _bd.AbrirConexao();
             DataTable dt = _bd.ExecutarSelect(sql);
             _bd.FecharConexao();
@@ -42,11 +41,9 @@ namespace Engenharia2.DAL
             if(dt.Rows.Count > 0)
             {
                 exemplar = new Exemplar();
-                exemplar.Id = Convert.ToInt32(dt.Rows[0]["id"]);
-                exemplar.Posicao = null;
-                exemplar.Qtd = Convert.ToInt32(dt.Rows[0]["qtd"]);      
-                
-
+                exemplar.Id = Convert.ToInt32(dt.Rows[0]["idExemplar"]);
+                exemplar.Posicao = new PosicaoDAL().obterPorID(Convert.ToInt32(dt.Rows[0]["Posicao_idPosicao"]));
+                exemplar.Livro = new LivroDAL().seleciona(Convert.ToInt32(dt.Rows[0]["Livro_idLivro"]));
             }
 
             return exemplar;

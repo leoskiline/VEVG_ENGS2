@@ -59,7 +59,7 @@ namespace Engenharia2.DAL
         }
 
         public Livro seleciona(int id){
-            string sql = "SELECT * FROM livro where id=@id";
+            string sql = "SELECT * FROM livro where idLivro=@id";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@id", id.ToString());
             _bd.AbrirConexao();
@@ -71,9 +71,11 @@ namespace Engenharia2.DAL
             {
                 livro = new Livro()
                 {
-                    Id = Convert.ToInt32(dt.Rows[0]["id"]),
-                    Nome = dt.Rows[0]["nome"].ToString(),
-                    Editora = edal.BuscaEditoraPorId(Convert.ToInt32(dt.Rows[0][2]))
+                    Id = Convert.ToInt32(dt.Rows[0]["idLivro"]),
+                    Nome = dt.Rows[0]["Nome"].ToString(),
+                    Editora = edal.BuscaEditoraPorId(Convert.ToInt32(dt.Rows[0][2])),
+                    Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos"),
+                    Qtd = Convert.ToInt32(dt.Rows[0]["qtd"].ToString())
                 };
             }
             return livro;

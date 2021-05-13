@@ -14,7 +14,7 @@ namespace Engenharia2.DAL
         public int obterIdPorNome(string nome)
         {
             int id = 0;
-            string sql = "SELECT idAdministrador FROM administrador WHERE nome = @nome";
+            string sql = "SELECT idAdministrador FROM administrador WHERE Nome = @nome";
             _bd.AdicionarParametro("@nome", nome);
             _bd.AbrirConexao();
             DataTable admin = _bd.ExecutarSelect(sql);
@@ -29,7 +29,7 @@ namespace Engenharia2.DAL
         public Administrador obter(string nome)
         {
             Administrador adm = null;            
-            string sql = "SELECT * FROM administrador WHERE nome = @nome";
+            string sql = "SELECT * FROM administrador WHERE Nome = @nome";
             _bd.AdicionarParametro("@nome", nome);
             _bd.AbrirConexao();
             DataTable admin = _bd.ExecutarSelect(sql);
@@ -39,10 +39,10 @@ namespace Engenharia2.DAL
                 adm = new Administrador()
                 {
                     Id = Convert.ToInt32(admin.Rows[0]["idAdministrador"]),
-                    Nome = admin.Rows[0]["nome"].ToString(),
-                    Cpf = admin.Rows[0]["cpf"].ToString(),
-                    Endereco = admin.Rows[0]["endereco"].ToString(),
-                    Telefone = admin.Rows[0]["telefone"].ToString()
+                    Nome = admin.Rows[0]["Nome"].ToString(),
+                    Cpf = admin.Rows[0]["CPF"].ToString(),
+                    Endereco = admin.Rows[0]["Endereco"].ToString(),
+                    Telefone = admin.Rows[0]["Telefone"].ToString()
 
                 };
             }

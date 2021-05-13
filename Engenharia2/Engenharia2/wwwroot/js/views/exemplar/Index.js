@@ -4,7 +4,6 @@
     enviar: () => {
 
         let dados = {
-            qtd: document.getElementById("qtd").value,
             livroId: document.getElementById("livroId").value,
             setor: document.getElementById("setorPos").value,
             prateleira: document.getElementById("prateleiraPos").value

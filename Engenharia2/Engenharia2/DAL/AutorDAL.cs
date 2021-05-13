@@ -14,7 +14,7 @@ namespace Engenharia2.DAL
         public string gravar(Autor autor)
         {
             string msg = "Falha ao Gravar Autor";
-            string sql = "INSERT INTO autor (nome,Administrador_idAdministrador) VALUES (@nome,@administradorId)";
+            string sql = "INSERT INTO autor (Nome,Administrador_idAdministrador) VALUES (@nome,@administradorId)";
 
             _bd.AdicionarParametro("@nome", autor.Nome);
 
@@ -47,7 +47,7 @@ namespace Engenharia2.DAL
                 autor = new Autor()
                 {
                     Id = Convert.ToInt32(dt.Rows[0]["idAutor"]),
-                    Nome = dt.Rows[0]["nome"].ToString(),
+                    Nome = dt.Rows[0]["Nome"].ToString(),
                     Administrador = adm.obter("Leonardo Custodio dos Santos")
                 };
             }
@@ -59,7 +59,7 @@ namespace Engenharia2.DAL
 
         public Autor BuscaAutorPorNome(string nome)
         {
-            string sql = "SELECT * FROM autor WHERE nome=@nome";
+            string sql = "SELECT * FROM autor WHERE Nome=@nome";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@nome", nome);
             _bd.AbrirConexao();
@@ -72,7 +72,7 @@ namespace Engenharia2.DAL
                 autor = new Autor()
                 {
                     Id = Convert.ToInt32(dt.Rows[0]["idAutor"]),
-                    Nome = dt.Rows[0]["nome"].ToString(),
+                    Nome = dt.Rows[0]["Nome"].ToString(),
                     Administrador = adm.obter("Leonardo Custodio dos Santos")
                 };
             }
@@ -92,7 +92,7 @@ namespace Engenharia2.DAL
                 var autor = new Autor()
                 {
                     Id = Convert.ToInt32(row["idAutor"]),
-                    Nome = row["nome"].ToString(),
+                    Nome = row["Nome"].ToString(),
                     Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos")
 
                 };

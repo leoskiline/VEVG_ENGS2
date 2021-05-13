@@ -22,13 +22,12 @@ namespace Engenharia2.Controllers
             PosicaoDAL pdal = new PosicaoDAL();
             ExemplarDAL edal = new ExemplarDAL();
             Exemplar exemplar = null;
-            if(dados.GetProperty("livroId").ToString().Length > 0 && dados.GetProperty("qtd").ToString().Length>0 && dados.GetProperty("setor").ToString().Length>0)
+            if(dados.GetProperty("livroId").ToString().Length > 0 && dados.GetProperty("setor").ToString().Length>0)
             {
                 exemplar = new Exemplar()
                 {
                     Livro = ldal.seleciona(Convert.ToInt32(dados.GetProperty("livroId").ToString())),
-                    Qtd = Convert.ToInt32(dados.GetProperty("qtd").ToString()),
-                    Posicao = pdal.obter(dados.GetProperty("setor").ToString())
+                    Posicao = pdal.gravar(dados.GetProperty("setor").ToString(), dados.GetProperty("prateleira").ToString())
                 };
             }
             else

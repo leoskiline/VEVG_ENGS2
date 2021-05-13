@@ -15,7 +15,7 @@ namespace Engenharia2.DAL
         public string gravar(Editora editora)
         {
             string msg = "Falha ao Gravar Editora";
-            string sql = "INSERT INTO editora (nome,descricao,telefone,Administrador_idAdministrador) VALUES (@nome,@descricao,@telefone,@administradorId)";
+            string sql = "INSERT INTO editora (Nome,Descricao,Telefone,Administrador_idAdministrador) VALUES (@nome,@descricao,@telefone,@administradorId)";
             _bd.AdicionarParametro("@nome", editora.Nome);
             _bd.AdicionarParametro("@descricao", editora.Descricao);
             _bd.AdicionarParametro("@telefone", editora.Telefone);
@@ -44,9 +44,9 @@ namespace Engenharia2.DAL
                 var editora = new Editora()
                 {
                     Id = Convert.ToInt32(row["idEditora"]),
-                    Nome = row["nome"].ToString(),
-                    Descricao = row["descricao"].ToString(),
-                    Telefone = row["telefone"].ToString(),
+                    Nome = row["Nome"].ToString(),
+                    Descricao = row["Descricao"].ToString(),
+                    Telefone = row["Telefone"].ToString(),
                     Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos")
 
                 };
@@ -57,7 +57,7 @@ namespace Engenharia2.DAL
 
         public Editora BuscaEditora(string nome)
         {
-            string sql = "SELECT * FROM editora WHERE nome=@nome";
+            string sql = "SELECT * FROM editora WHERE Nome=@nome";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@nome", nome);
             _bd.AbrirConexao();
@@ -70,9 +70,9 @@ namespace Engenharia2.DAL
 
                 AdministradorDAL adm = new AdministradorDAL();  
                 editora.Id = Convert.ToInt32(dt.Rows[0]["idEditora"]);
-                editora.Nome = dt.Rows[0]["nome"].ToString();
-                editora.Descricao = dt.Rows[0]["descricao"].ToString();
-                editora.Telefone = dt.Rows[0]["telefone"].ToString();
+                editora.Nome = dt.Rows[0]["Nome"].ToString();
+                editora.Descricao = dt.Rows[0]["Descricao"].ToString();
+                editora.Telefone = dt.Rows[0]["Telefone"].ToString();
                 editora.Administrador = adm.obter("Leonardo Custodio dos Santos");
 
             }
@@ -98,9 +98,9 @@ namespace Engenharia2.DAL
 
                 AdministradorDAL adm = new AdministradorDAL();
                 editora.Id = Convert.ToInt32(dt.Rows[0]["idEditora"]);
-                editora.Nome = dt.Rows[0]["nome"].ToString();
-                editora.Descricao = dt.Rows[0]["descricao"].ToString();
-                editora.Telefone = dt.Rows[0]["telefone"].ToString();
+                editora.Nome = dt.Rows[0]["Nome"].ToString();
+                editora.Descricao = dt.Rows[0]["Descricao"].ToString();
+                editora.Telefone = dt.Rows[0]["Telefone"].ToString();
                 editora.Administrador = adm.obter("Leonardo Custodio dos Santos");
 
             }

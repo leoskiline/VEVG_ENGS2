@@ -13,7 +13,7 @@ namespace Engenharia2.DAL
         public int obterIdPorNome(string nome)
         {
             int id = 0;
-            string sql = "SELECT idAtendente FROM atendente WHERE nome = @nome";
+            string sql = "SELECT idAtendente FROM atendente WHERE Nome = @nome";
             _bd.AdicionarParametro("@nome", nome);
             _bd.AbrirConexao();
             DataTable atd = _bd.ExecutarSelect(sql);

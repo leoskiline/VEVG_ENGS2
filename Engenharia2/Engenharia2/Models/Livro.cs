@@ -9,34 +9,31 @@ namespace Engenharia2.Models
     {
         private int id;
         private string nome;
-        private Exemplar exemplar;
         private Editora editora;
-        private Reserva reserva;
-        private Autor autor;
         private Administrador administrador;
+        private Autor autor;
         private int qtd;
 
         public Livro()
         {
-
+            
         }
-        public Livro(int id, string nome, Editora editora, Reserva reserva, Autor autor, Administrador administrador)
+
+        public Livro(int id, string nome, Editora editora, Administrador administrador, Autor autor, int qtd)
         {
             this.Id = id;
             this.Nome = nome;
             this.Editora = editora;
-            this.Reserva = reserva;
-            this.Autor = autor;
             this.Administrador = administrador;
+            this.Autor = autor;
+            this.Qtd = qtd;
         }
 
         public int Id { get => id; set => id = value; }
         public string Nome { get => nome; set => nome = value; }
-        public Exemplar Exemplar { get => exemplar; set => exemplar = value; }
         public Editora Editora { get => editora; set => editora = value; }
-        public Reserva Reserva { get => reserva; set => reserva = value; }
-        public Autor Autor { get => autor; set => autor = value; }
         public Administrador Administrador { get => administrador; set => administrador = value; }
+        public Autor Autor { get => autor; set => autor = value; }
         public int Qtd { get => qtd; set => qtd = value; }
     }
 }

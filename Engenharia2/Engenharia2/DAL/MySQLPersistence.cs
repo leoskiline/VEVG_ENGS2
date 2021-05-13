@@ -15,7 +15,7 @@ namespace Engenharia2.DAL
         MySqlCommand _comando;
         public MySQLPersistence()
         {
-            _strCon = "Server=den1.mysql1.gear.host;Database=leofipp;Uid=leofipp;Pwd=Sg90DsB_~d93;";
+            _strCon = "Server=leonardocds15.sytes.net;Database=leofipp;Uid=fipp;Pwd=123@;";
             _conexao = new MySqlConnection(_strCon);
             _comando = _conexao.CreateCommand();
         }
