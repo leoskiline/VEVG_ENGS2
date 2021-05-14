@@ -35,5 +35,10 @@ namespace Engenharia2.Models
         public Administrador Administrador { get => administrador; set => administrador = value; }
         public Autor Autor { get => autor; set => autor = value; }
         public int Qtd { get => qtd; set => qtd = value; }
+
+        public List<Livro> obterTodosLivros()
+        {
+            return new DAL.LivroDAL().selecionarTodos();
+        }
     }
 }
