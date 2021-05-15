@@ -17,19 +17,8 @@ namespace Engenharia2.Controllers
 
         public IActionResult Gravar([FromBody] System.Text.Json.JsonElement dados)
         {
-            string msg = "Falha ao Gravar Editora!";
-            LeitorDAL leitordal = new LeitorDAL();
-            Leitor leitor = new Leitor();
+            string msg = new Leitor().Gravar(dados);
 
-            leitor.Nome = dados.GetProperty("nome").ToString();
-            leitor.Cpf = dados.GetProperty("cpf").ToString();
-            leitor.Endereco = dados.GetProperty("endereco").ToString();
-
-
-            if (leitor.Nome.Length > 0 && leitor.Cpf.Length > 0 && leitor.Endereco.Length > 0)
-                msg = leitordal.gravar(leitor);
-            else
-                msg = "Preencha Todos os Campos";
             return Json(new
             {
                 msg

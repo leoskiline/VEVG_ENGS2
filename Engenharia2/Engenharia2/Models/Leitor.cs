@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Engenharia2.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,5 +41,23 @@ namespace Engenharia2.Models
         public string Endereco { get => endereco; set => endereco = value; }
         public DateTime DataNasc { get => dataNasc; set => dataNasc = value; }
         public Atendente Atendente { get => atendente; set => atendente = value; }
+
+        public string Gravar(System.Text.Json.JsonElement dados)
+        {
+            string msg = "Falha ao Gravar Editora!";
+            LeitorDAL leitordal = new LeitorDAL();
+            Leitor leitor = new Leitor();
+
+            leitor.Nome = dados.GetProperty("nome").ToString();
+            leitor.Cpf = dados.GetProperty("cpf").ToString();
+            leitor.Endereco = dados.GetProperty("endereco").ToString();
+
+
+            if (leitor.Nome.Length > 0 && leitor.Cpf.Length > 0 && leitor.Endereco.Length > 0)
+                msg = leitordal.gravar(leitor);
+            else
+                msg = "Preencha Todos os Campos";
+            return msg;
+        }
     }
 }
