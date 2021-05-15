@@ -15,18 +15,10 @@ namespace Engenharia2.Controllers
             return View();
         }
 
+        
         public IActionResult Gravar([FromBody] System.Text.Json.JsonElement dados)
         {
-            string msg = "Falha ao Gravar Editora!";
-            EditoraDAL editoradal = new EditoraDAL();
-            Editora editora = new Editora();
-            editora.Nome = dados.GetProperty("nome").ToString();
-            editora.Descricao = dados.GetProperty("descricao").ToString();
-            editora.Telefone = dados.GetProperty("telefone").ToString();
-            if (editora.Nome.Length > 0 && editora.Descricao.Length > 0 && editora.Telefone.Length > 0)
-                msg = editoradal.gravar(editora);
-            else
-                msg = "Preencha Todos os Campos";
+            string msg = new Editora().Gravar(dados);
             return Json(new
             {
                 msg
