@@ -17,17 +17,8 @@ namespace Engenharia2.Controllers
 
         public IActionResult Gravar([FromBody] System.Text.Json.JsonElement dados)
         {
-            string msg = "Falha ao Gravar Autor!";
-            AutorDAL autordal = new AutorDAL();
-            Autor autor = new Autor();
+            string msg = new Autor().Gravar(dados);
 
-            autor.Nome = dados.GetProperty("nome").ToString();
-
-
-            if (autor.Nome.Length > 0)
-                msg = autordal.gravar(autor);
-            else
-                msg = "Preencha Todos os Campos";
             return Json(new
             {
                 msg
