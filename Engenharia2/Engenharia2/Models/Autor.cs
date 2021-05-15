@@ -30,6 +30,11 @@ namespace Engenharia2.Models
         public string Nome { get => nome; set => nome = value; }
         public Administrador Administrador { get => administrador; set => administrador = value; }
 
+        public List<Autor> obterTodosAutores()
+        {
+            return new DAL.AutorDAL().selecionarTodos();
+        }
+
         public string Gravar(System.Text.Json.JsonElement dados)
         {
             string msg = "Falha ao Gravar Autor!";

@@ -37,6 +37,10 @@ namespace Engenharia2.Models
         public string Telefone { get => telefone; set => telefone = value; }
         public Administrador Administrador { get => administrador; set => administrador = value; }
 
+        public List<Editora> obterTodasEditoras()
+        {
+            return new DAL.EditoraDAL().selecionarTodos();
+        }
         public string Gravar(System.Text.Json.JsonElement dados)
         {
             string msg = "Falha ao Gravar Editora!";

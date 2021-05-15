@@ -26,19 +26,13 @@ namespace Engenharia2.Controllers
         [HttpGet]
         public IActionResult ObterEditoras()
         {
-            EditoraDAL edal = new EditoraDAL();
-            List<Editora> editoras = edal.selecionarTodos();
-            IEnumerable<Editora> edt = editoras.AsEnumerable();
-            return Json(edt);
+            return Json(new Models.Editora().obterTodasEditoras().AsEnumerable());
         }
 
         [HttpGet]
         public IActionResult ObterAutores()
         {
-            AutorDAL adal = new AutorDAL();
-            List<Models.Autor> autores = adal.selecionarTodos();
-            IEnumerable<Autor> atr = autores.AsEnumerable();
-            return Json(atr);
+            return Json(new Models.Autor().obterTodosAutores().AsEnumerable());
         }
     }
 }
