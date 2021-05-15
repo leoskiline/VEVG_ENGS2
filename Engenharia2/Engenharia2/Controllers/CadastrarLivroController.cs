@@ -16,24 +16,7 @@ namespace Engenharia2.Controllers
         }
         public IActionResult Gravar([FromBody] System.Text.Json.JsonElement dados)
         {
-            string msg = "Falha ao Gravar Livro!";
-            
-            LivroDAL livrodal = new LivroDAL();
-            
-
-            Livro livro = null;
-            if(dados.GetProperty("nome").ToString().Length>0 && dados.GetProperty("autor").ToString().Length>0 && dados.GetProperty("editora").ToString().Length>0)
-            {
-                AutorDAL autordal = new AutorDAL();
-                livro = new Livro();
-                livro.Nome = dados.GetProperty("nome").ToString();
-                livro.Autor = autordal.BuscaAutorPorId(Convert.ToInt32(dados.GetProperty("autor").ToString()));
-                livro.Editora = new EditoraDAL().BuscaEditoraPorId(Convert.ToInt32(dados.GetProperty("editora").ToString()));
-                livro.Qtd = Convert.ToInt32(dados.GetProperty("qtd").ToString());
-                livro.Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos");
-            }
-            if(livro != null)
-                msg = livrodal.gravar(livro);
+            string msg = new Livro().Gravar(dados);
 
             return Json(new
             {
