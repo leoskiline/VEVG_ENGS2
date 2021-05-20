@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Cadastrar Leitor";
+}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Pagina Cadastro de Leitor</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="~/Home">Home</a></li>
+                    <li class="breadcrumb-item active">Cadastro de Leitor</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="nomeLeitor">Nome:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="nomeLeitor" placeholder="Digite o Nome do Leitor">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="cpfLeitor">CPF:</label>
+                    <div class="col-sm-2">
+                        <input class="form-control" id="cpfLeitor" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" placeholder="Digite o CPF do Leitor"></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dataLeitor">Data de Nascimento:</label>
+                    <div class="col-sm-2">
+                        <input type="date" class="form-control" id="dataLeitor">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="enderecoLeitor">Endereco:</label>
+                    <div class="col-sm-2">
+                        <input class="form-control" id="enderecoLeitor" placeholder="Digite o endereco do Leitor"></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-success" onclick="indexLeitor.enviar()">Cadastrar</button>
+                    </div><br />
+                    <div class="col-sm-3" id="gravou"></div>
+                </div>
+
+            </form>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+@section javascript {
+    <script src="~/js/views/leitor/Index.js"></script>
+    <script src="~/lib/HTTPClient.js"></script>
+    <script src="~/js/views/leitor/mascaraCPF.js"></script>
+}

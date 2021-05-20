@@ -7,7 +7,7 @@ let listarLivro = {
     },
 
     obterLivros: () => {
-        HTTPClient.get("/CadastrarExemplar/ObterLivros")
+        HTTPClient.get("/Exemplar/ObterLivros")
             .then(result => {
                 return result.json();
             })

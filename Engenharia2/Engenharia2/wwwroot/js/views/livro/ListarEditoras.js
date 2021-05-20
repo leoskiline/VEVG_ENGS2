@@ -7,7 +7,7 @@ let listarEditoras = {
     },
 
     obterEditoras: () => {
-        HTTPClient.get("/CadastrarLivro/ObterEditoras")
+        HTTPClient.get("/Livro/ObterEditoras")
             .then(result => {
                 return result.json();
             })

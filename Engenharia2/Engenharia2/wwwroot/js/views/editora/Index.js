@@ -8,7 +8,7 @@
             descricao: document.getElementById("descricao").value,
             telefone: document.getElementById("telefone").value
         }
-        HTTPClient.post("/CadastrarEditora/Gravar", dados)
+        HTTPClient.post("/Editora/Gravar", dados)
             .then(result => {
                 
                 return result.json();

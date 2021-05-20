@@ -12,56 +12,51 @@ namespace Engenharia2.Models
         private string nome;
         private Editora editora;
         private Administrador administrador;
-        private Autor autor;
+        private List<Autor> autor; // List<Autor>
         private int qtd;
+
+        public int Id { get => id; set => id = value; }
+        public string Nome { get => nome; set => nome = value; }
+        public Editora Editora { get => editora; set => editora = value; }
+        public Administrador Administrador { get => administrador; set => administrador = value; }
+        public List<Autor> Autor { get => autor; set => autor = value; }
+        public int Qtd { get => qtd; set => qtd = value; }
 
         public Livro()
         {
             
         }
 
-        public Livro(int id, string nome, Editora editora, Administrador administrador, Autor autor, int qtd)
+        public Livro(int id, string nome, Editora editora, Administrador administrador, List<Autor> autor, int qtd)
         {
-            this.Id = id;
-            this.Nome = nome;
-            this.Editora = editora;
-            this.Administrador = administrador;
-            this.Autor = autor;
-            this.Qtd = qtd;
+            this.id = id;
+            this.nome = nome;
+            this.editora = editora;
+            this.administrador = administrador;
+            this.autor = autor;
+            this.qtd = qtd;
         }
 
-        public int Id { get => id; set => id = value; }
-        public string Nome { get => nome; set => nome = value; }
-        public Editora Editora { get => editora; set => editora = value; }
-        public Administrador Administrador { get => administrador; set => administrador = value; }
-        public Autor Autor { get => autor; set => autor = value; }
-        public int Qtd { get => qtd; set => qtd = value; }
+        public Livro(string nome, Editora editora, Administrador administrador, List<Autor> autor, int qtd)
+        {
+            Nome = nome;
+            Editora = editora;
+            Administrador = administrador;
+            Autor = autor;
+            Qtd = qtd;
+        }
 
         public List<Livro> obterTodosLivros()
         {
             return new DAL.LivroDAL().selecionarTodos();
         }
 
-        public string Gravar(System.Text.Json.JsonElement dados)
+        public string Gravar(string nome,List<Autor> autor,Editora editora,Administrador adm,int qtd)
         {
             string msg = "Falha ao Gravar Livro!";
-
             LivroDAL livrodal = new LivroDAL();
-
-
-            Livro livro = null;
-            if (dados.GetProperty("nome").ToString().Length > 0 && dados.GetProperty("autor").ToString().Length > 0 && dados.GetProperty("editora").ToString().Length > 0)
-            {
-                AutorDAL autordal = new AutorDAL();
-                livro = new Livro();
-                livro.Nome = dados.GetProperty("nome").ToString();
-                livro.Autor = autordal.BuscaAutorPorId(Convert.ToInt32(dados.GetProperty("autor").ToString()));
-                livro.Editora = new EditoraDAL().BuscaEditoraPorId(Convert.ToInt32(dados.GetProperty("editora").ToString()));
-                livro.Qtd = Convert.ToInt32(dados.GetProperty("qtd").ToString());
-                livro.Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos");
-            }
-            if (livro != null)
-                msg = livrodal.gravar(livro);
+            Livro livro = new Livro(nome, editora, adm, autor, qtd);
+            msg = livrodal.gravar(livro);
             return msg;
         }
     }

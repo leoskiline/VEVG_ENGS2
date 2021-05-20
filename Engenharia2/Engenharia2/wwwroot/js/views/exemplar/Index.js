@@ -9,7 +9,7 @@
             prateleira: document.getElementById("prateleiraPos").value
         }
 
-        HTTPClient.post("/CadastrarExemplar/Gravar", dados)
+        HTTPClient.post("/Exemplar/Gravar", dados)
             .then(result => {
                 return result.json();
             })

@@ -55,5 +55,10 @@ namespace Engenharia2.Models
                 msg = "Preencha Todos os Campos";
             return msg;
         }
+
+        public Editora obterEditoraPorID(int id)
+        {
+            return new DAL.EditoraDAL().BuscaEditoraPorId(id);
+        }
     }
 }

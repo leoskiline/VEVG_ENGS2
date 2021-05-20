@@ -7,7 +7,7 @@
             nome: document.getElementById("nomeAutor").value,
         }
 
-        HTTPClient.post("/CadastrarAutor/Gravar", dados)
+        HTTPClient.post("/Autor/Gravar", dados)
             .then(result => {
                 return result.json();
             })

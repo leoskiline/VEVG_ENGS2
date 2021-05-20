@@ -10,7 +10,7 @@
             endereco: document.getElementById("enderecoLeitor").value
         }
 
-        HTTPClient.post("/CadastrarLeitor/Gravar", dados)
+        HTTPClient.post("/Leitor/Gravar", dados)
             .then(result => {
                 return result.json();
             })

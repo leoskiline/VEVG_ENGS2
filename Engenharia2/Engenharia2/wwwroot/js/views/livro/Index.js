@@ -3,13 +3,19 @@
 
     enviar: () => {
         document.getElementById("gravando").innerHTML = "Gravando... Aguarde!";
+        var select = document.getElementById("autorId");
+        var autoresId = [];
+        for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].selected)
+                autoresId.push(select.options[i].value);
+        }
         let dados = {
             nome: document.getElementById("nome").value,    
-            editora: document.getElementById("editoraId").value,            
-            autor: document.getElementById("autorId").value,
+            editora: document.getElementById("editoraId").value,
+            autor: autoresId,
             qtd: document.getElementById("qtd").value
         }
-        HTTPClient.post("/CadastrarLivro/Gravar", dados)
+        HTTPClient.post("/Livro/Gravar", dados)
             .then(result => {
                 return result.json();
             })

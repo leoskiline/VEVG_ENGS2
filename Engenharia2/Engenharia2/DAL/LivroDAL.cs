@@ -16,17 +16,23 @@ namespace Engenharia2.DAL
         {
             string msg = "Falha ao Gravar Livro";
             string sql = "INSERT INTO livro (Nome,Editora_idEditora,Administrador_idAdministrador,qtd) VALUES (@nome,@editoraId,@administradorId,@qtd);Select @@IDENTITY;";
-            string sql2 = "INSERT INTO livro_has_autor (Livro_idLivro,Autor_idAutor) VALUES (@livroId,@autorId)";
+            
             _bd.LimparParametros();
             _bd.AdicionarParametro("@nome", livro.Nome);
             _bd.AdicionarParametro("@editoraId", new EditoraDAL().BuscaEditoraPorId(livro.Editora.Id).Id.ToString());
-            _bd.AdicionarParametro("@autorId", new AutorDAL().BuscaAutorPorId(livro.Autor.Id).Id.ToString());
             _bd.AdicionarParametro("@administradorId", new AdministradorDAL().obterIdPorNome("Leonardo Custodio dos Santos").ToString());
             _bd.AdicionarParametro("@qtd", livro.Qtd.ToString());
             _bd.AbrirConexao();
             livro.Id = _bd.ExecutarNonQueryAndGetID(sql);
-            _bd.AdicionarParametro("@livroId", livro.Id.ToString());
-            int rows2 = _bd.ExecutarNonQuery(sql2);
+            string sql2 = "INSERT INTO livro_has_autor (Livro_idLivro,Autor_idAutor) VALUES (@livroId,@autorId)";
+            int rows2 = 0;
+            for(int i = 0; i < livro.Autor.Count; i++)
+            {
+                _bd.LimparParametros();
+                _bd.AdicionarParametro("@livroId", livro.Id.ToString());
+                _bd.AdicionarParametro("@autorId", livro.Autor[i].Id.ToString());
+                rows2 += _bd.ExecutarNonQuery(sql2);
+            }
             _bd.FecharConexao();
             if(livro.Id != 0 && rows2 > 0)
             {

@@ -35,6 +35,11 @@ namespace Engenharia2.Models
             return new DAL.AutorDAL().selecionarTodos();
         }
 
+        public List<Autor> obterAutoresPorListID(List<int> id)
+        {
+            return new DAL.AutorDAL().obterAutoresPorListID(id);
+        }
+
         public string Gravar(System.Text.Json.JsonElement dados)
         {
             string msg = "Falha ao Gravar Autor!";

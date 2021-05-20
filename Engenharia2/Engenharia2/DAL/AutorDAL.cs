@@ -100,5 +100,34 @@ namespace Engenharia2.DAL
             }
             return autores;
         }
+
+        public List<Autor> obterAutoresPorListID(List<int> id)
+        {
+            List<Autor> autores = new List<Autor>();
+            int cont = id.Count;
+            DataTable[] dt = new DataTable[cont];
+            _bd.AbrirConexao();
+            string sql;
+            Autor autor = null;
+            for (int i = 0;i< cont;i++)
+            {
+                sql = "SELECT * FROM autor WHERE idAutor = @idAutor";
+                _bd.LimparParametros();
+                _bd.AdicionarParametro("@idAutor", id[i].ToString());
+                dt[i] = _bd.ExecutarSelect(sql);
+                if (dt[i].Rows.Count > 0)
+                {
+                    autor = new Autor()
+                    {
+                        Id = Convert.ToInt32(dt[i].Rows[0]["idAutor"]),
+                        Nome = dt[i].Rows[0]["Nome"].ToString(),
+                        Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos")
+                    };
+                    autores.Add(autor);
+                }
+            }
+            _bd.FecharConexao();
+            return autores;
+        }
     }
 }
