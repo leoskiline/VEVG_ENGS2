@@ -45,14 +45,29 @@ namespace Engenharia2.Models
         {
             string msg = "Falha ao Gravar Editora!";
             EditoraDAL editoradal = new EditoraDAL();
-            Editora editora = new Editora();
-            editora.Nome = dados.GetProperty("nome").ToString();
-            editora.Descricao = dados.GetProperty("descricao").ToString();
-            editora.Telefone = dados.GetProperty("telefone").ToString();
-            if (editora.Nome.Length > 0 && editora.Descricao.Length > 0 && editora.Telefone.Length > 0)
-                msg = editoradal.gravar(editora);
+            Editora editora = editoradal.BuscaEditoraPorId(Convert.ToInt32(dados.GetProperty("id").ToString()));
+
+            if(editora == null)
+            {
+                editora = new Editora();
+                editora.Nome = dados.GetProperty("nome").ToString();
+                editora.Descricao = dados.GetProperty("descricao").ToString();
+                editora.Telefone = dados.GetProperty("telefone").ToString();
+                if (editora.Nome.Length > 0 && editora.Descricao.Length > 0 && editora.Telefone.Length > 0)
+                    msg = editoradal.gravar(editora);
+                else
+                    msg = "Preencha Todos os Campos";
+            }
             else
-                msg = "Preencha Todos os Campos";
+            {
+                editora.Nome = dados.GetProperty("nome").ToString();
+                editora.Descricao = dados.GetProperty("descricao").ToString();
+                editora.Telefone = dados.GetProperty("telefone").ToString();
+                if (editora.Nome.Length > 0 && editora.Descricao.Length > 0 && editora.Telefone.Length > 0)
+                    msg = editoradal.alterar(editora);
+                else
+                    msg = "Preencha Todos os Campos";
+            }
             return msg;
         }
 

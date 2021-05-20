@@ -1,9 +1,34 @@
 ﻿let indexEditora = {
 
+    carregar: () => {
+        
+        HTTPClient.get("/Editora/Listar")
+            .then(function (response) {
+                return response.json();
+            })
+            .then(dados => {
+                var table = "";
+                dados.forEach(item => {
+                    table += `<tr>
+                        <td>${item.id}</td>
+                        <td>${item.nome}</td>
+                        <td>${item.descricao}</td>
+                        <td>${item.telefone}</td>
+                        <td onclick='indexEditora.apagar(${item.id})'>X</td>
+                        <td onclick='indexEditora.alterar(${item.id})'>▓</td>
+                              </tr>`;
+                });
+
+                document.getElementById("corpo-tabela").innerHTML = table;
+            }).catch(function (error) {
+                console.error(error);
+            });
+    },
 
     enviar: () => {
 
         let dados = {
+            id: document.getElementById("id").innerHTML,
             nome: document.getElementById("nome").value,
             descricao: document.getElementById("descricao").value,
             telefone: document.getElementById("telefone").value
@@ -22,60 +47,63 @@
                 }
                 else
                     document.getElementById("gravou").innerHTML = "<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button><i class='fa fa-check-circle'></i> " + dados.msg + "</div>";
+                indexEditora.carregar();
             })
             .catch(() => {
                 console.log("Falha ao Gravar");
             });
-        document.getElementById("txtNome").value = "";
-        document.getElementById("selCategoria").value = "";
+
+        indexEditora.limparForm();
     },
 
-    obterCategorias: () => {
-
-        HTTPClient.get("/Produto/ObterCategorias")
-            .then(result => {
-                return result.json();
+    apagar: (id) => {
+        HTTPClient.delete("/Editora/Deletar?id=" + id)
+            .then(function (response) {
+                return response.json();
             })
             .then(dados => {
-                indexProduto.preencherCategorias(dados);
-            })
-            .catch(() => {
-                alert("Não foi possível obter as categorias.");
-            })
-
+                indexEditora.carregar();
+                alert(dados.msg);
+            }).catch(function (error) {
+                console.error(error);
+            });
     },
 
-    preencherCategorias: (dados) => {
+    alterar: (id) => {
+        var fdados = document.getElementById("editora-fdados");
+
+        HTTPClient.put("/Editora/Alterar?id=" + id, fdados)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(dados => {
+                document.getElementById("id").innerHTML = dados.id;
+                document.getElementById("nome").value = dados.nome;
+                document.getElementById("descricao").value = dados.descricao;
+                document.getElementById("telefone").value = dados.telefone;
+                
+                //fdados.nome.value = dados.nome;
+                //fdados.descricao.value = dados.descricao;
+                //fdados.telefone.value = dados.telefone;
+
+            }).catch(function (error) {
+                console.error(error);
+            });
+    },
+
+    limparForm: () => {
+        document.getElementById("id").innerHTML = "0"
+        var fdados = document.getElementById("editora-fdados");
+        debugger
+        fdados.nome.value = "";
+        fdados.descricao.value = "";
+        fdados.telefone.value = "";
         
-        let selCategoria = document.getElementById("selCategoria")
-
-        //abordagem 1
-        let opts = "<option></option>";
-
-        for (let i = 0; i < dados.length; i++) {
-
-            opts += `<option value="${dados[i].id}">${dados[i].nome}</option>`;
-        }
-
-        selCategoria.innerHTML = opts;
-
-        //abordagem 2
-        //for (let i = 0; i < dados.length; i++) {
-
-        //    let opt = document.createElement("option");
-        //    opt.value = dados[i].id;
-        //    opt.innerHTML = dados[i].nome;
-        //    selCategoria.appendChild(opt);
-        //}
-
-
     }
 }
 
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    
-
+    indexEditora.carregar();
 });
 

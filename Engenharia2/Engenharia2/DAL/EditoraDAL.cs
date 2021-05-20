@@ -31,6 +31,41 @@ namespace Engenharia2.DAL
             return msg;
         }
 
+        public string deletar(int id)
+        {
+            string msg = "Falha ao Deletar Editora";
+            string sql = "DELETE FROM editora WHERE idEditora='"+ id +"'";
+            
+            _bd.AbrirConexao();
+            int rows = _bd.ExecutarNonQuery(sql);
+            _bd.FecharConexao();
+            if (rows > 0)
+            {
+                msg = "Editora deletada com Sucesso!";
+            }
+            return msg;
+        }
+
+        public string alterar(Editora editora)
+        {
+            string msg = "Falha ao Deletar Editora";
+            string sql = "UPDATE editora SET nome = @nome, descricao=@descricao, telefone=@telefone WHERE idEditora='" + editora.Id + "'";
+
+            _bd.LimparParametros();
+            _bd.AdicionarParametro("@nome", editora.Nome);
+            _bd.AdicionarParametro("@descricao", editora.Descricao);
+            _bd.AdicionarParametro("@telefone", editora.Telefone);
+
+            _bd.AbrirConexao();
+            int rows = _bd.ExecutarNonQuery(sql);
+            _bd.FecharConexao();
+            if (rows > 0)
+            {
+                msg = "Editora alterada com Sucesso!";
+            }
+            return msg;
+        }
+
         //Seleção simples de lista
         public List<Editora> selecionarTodos()
         {
