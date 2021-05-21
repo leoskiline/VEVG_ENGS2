@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Engenharia2.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,5 +33,10 @@ namespace Engenharia2.Models
         public string Cpf { get => cpf; set => cpf = value; }
         public string Endereco { get => endereco; set => endereco = value; }
         public string Telefone { get => telefone; set => telefone = value; }
+
+        public Administrador obter(string nome)
+        {
+            return new AdministradorDAL().obter(nome);
+        }
     }
 }

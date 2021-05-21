@@ -24,5 +24,36 @@ namespace Engenharia2.Controllers
                 msg
             });
         }
+        [HttpGet]
+        public IActionResult Listar()
+        {
+            return Json(new Models.Leitor().selecionarTodos());
+        }
+
+        [HttpPut]
+        public IActionResult Alterar(int id)
+        {
+            string msg = "";
+            Leitor leitor = new Leitor().BuscarLeitorPorId(id);
+            return Json(new
+            {
+                leitor.Id,
+                leitor.Nome,
+                leitor.Cpf,
+                leitor.Endereco,
+                leitor.DataNasc
+            });
+        }
+
+        [HttpDelete]
+        public IActionResult Deletar(int id)
+        {
+            string msg = "";
+            msg = new Leitor().Deletar(id);
+            return Json(new
+            {
+                msg
+            });
+        }
     }
 }

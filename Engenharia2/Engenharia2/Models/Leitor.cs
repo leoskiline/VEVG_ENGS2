@@ -44,20 +44,55 @@ namespace Engenharia2.Models
 
         public string Gravar(System.Text.Json.JsonElement dados)
         {
-            string msg = "Falha ao Gravar Editora!";
+            string msg = "Falha ao Gravar Leitor!";
             LeitorDAL leitordal = new LeitorDAL();
-            Leitor leitor = new Leitor();
-
-            leitor.Nome = dados.GetProperty("nome").ToString();
-            leitor.Cpf = dados.GetProperty("cpf").ToString();
-            leitor.Endereco = dados.GetProperty("endereco").ToString();
-
-
-            if (leitor.Nome.Length > 0 && leitor.Cpf.Length > 0 && leitor.Endereco.Length > 0)
-                msg = leitordal.gravar(leitor);
+            Leitor leitor = leitordal.BuscaLeitorPorId(Convert.ToInt32(dados.GetProperty("id").ToString()));
+            if(leitor == null)
+            {
+                leitor = new Leitor();
+                leitor.Nome = dados.GetProperty("nome").ToString();
+                leitor.Cpf = dados.GetProperty("cpf").ToString();
+                leitor.Endereco = dados.GetProperty("endereco").ToString();
+                DateTime.TryParse(dados.GetProperty("dataNasc").ToString(), out leitor.dataNasc);
+                if (leitor.Nome.Length > 0 && leitor.Cpf.Length > 0 && leitor.Endereco.Length > 0 && leitor.dataNasc.ToString().Length > 0)
+                    msg = leitordal.gravar(leitor);
+                else
+                    msg = "Preencha Todos os Campos";
+            }
             else
-                msg = "Preencha Todos os Campos";
+            {
+                leitor = new Leitor();
+                leitor.Id = Convert.ToInt32(dados.GetProperty("id").ToString());
+                leitor.Nome = dados.GetProperty("nome").ToString();
+                leitor.Cpf = dados.GetProperty("cpf").ToString();
+                leitor.Endereco = dados.GetProperty("endereco").ToString();
+                DateTime.TryParse(dados.GetProperty("dataNasc").ToString(), out leitor.dataNasc);
+                if (leitor.Nome.Length > 0 && leitor.Cpf.Length > 0 && leitor.Endereco.Length > 0 && leitor.dataNasc.ToString().Length > 0)
+                    msg = leitordal.alterar(leitor);
+                else
+                    msg = "Preencha Todos os Campos";
+            }
             return msg;
+        }
+
+        public List<Leitor> selecionarTodos()
+        {
+            return new LeitorDAL().selecionarTodos();
+        }
+
+        public string Deletar(int id)
+        {
+            return new LeitorDAL().deletar(id);
+        }
+
+        public string Alterar(Leitor leitor)
+        {
+            return new LeitorDAL().alterar(leitor);
+        }
+
+        public Leitor BuscarLeitorPorId(int id)
+        {
+            return new LeitorDAL().BuscaLeitorPorId(id);
         }
     }
 }

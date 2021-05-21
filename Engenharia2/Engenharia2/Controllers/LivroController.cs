@@ -29,8 +29,12 @@ namespace Engenharia2.Controllers
             }
             Editora editora = new Editora().obterEditoraPorID(editoraId);
             List<Autor> autores = new Autor().obterAutoresPorListID(autoresId);
-            Administrador adm = new AdministradorDAL().obter("Leonardo Custodio dos Santos");
-            string msg = new Livro().Gravar(nome,autores,editora,adm,qtd);
+            Administrador adm = new Administrador().obter("Leonardo Custodio dos Santos");
+            string msg = "Preencha Todos os Campos!!!";
+            if(nome.Trim().Length>0 && editoraId != 0 && contautores>0 && autoresId != null && qtd > 0 && editora != null && autores != null && adm != null)
+            {
+                msg = new Livro().Gravar(nome, autores, editora, adm, qtd);
+            }
             return Json(new
             {
                 msg
