@@ -49,22 +49,29 @@
                 </div>
 
             </form>
-
-            <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Descrição</th>
-                        <th>Telefone</th>
-                        <th>Apagar</th>
-                        <th>Alterar</th>
-                    </tr>
-                </thead>
-                <tbody id="corpo-tabela">
-                    
-                </tbody>
-            </table>
+            <div class="center">
+                <div class="row">
+                    <h2 class="m-1">Lista de Editoras</h2>
+                    <p class="col-sm-5"></p>
+                    <input type="text" class="form-control col-sm-2 m-1" id="pesquisaEditora"  placeholder="Digite o nome da editora" value="" />
+                    <input type="button" class="form-control col-1 btn-dark m-1" value="Pesquisar" onclick="indexEditora.pesquisar()" />
+                    <input type="button" class="form-control col-1 btn-default m-1" value="Listar Todos" onclick="indexEditora.carregar()" />
+                </div>
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Telefone</th>
+                            <th>Apagar</th>
+                            <th>Alterar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpo-tabela">
+                    </tbody>
+                </table>
+            </div>
 
 
         </div>

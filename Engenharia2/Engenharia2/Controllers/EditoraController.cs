@@ -10,7 +10,6 @@ namespace Engenharia2.Controllers
 {
     public class EditoraController : Controller
     {
-        private EditoraDAL editoradal = new EditoraDAL();
         public IActionResult Index()
         {
             return View();
@@ -27,6 +26,12 @@ namespace Engenharia2.Controllers
         }
 
         [HttpGet]
+        public IActionResult Pesquisar(string nome)
+        {
+            return Json(new Models.Editora().BuscarEditoraPorNome(nome).AsEnumerable());
+        }
+
+        [HttpGet]
         public IActionResult Listar()
         {
             return Json(new Models.Editora().obterTodasEditoras().AsEnumerable());
@@ -36,7 +41,7 @@ namespace Engenharia2.Controllers
         public IActionResult Alterar(int id)
         {
             string msg = "";
-            Editora editora = editoradal.BuscaEditoraPorId(id);
+            Editora editora = new Editora().obterEditoraPorID(id);
             return Json(new
             {
                 editora.Id,
@@ -50,7 +55,7 @@ namespace Engenharia2.Controllers
         public IActionResult Deletar(int id)
         {
             string msg = "";
-            msg = this.editoradal.deletar(id);
+            msg = new Editora().Deletar(id);
             return Json(new
             {
                 msg

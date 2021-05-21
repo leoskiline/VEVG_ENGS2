@@ -25,6 +25,33 @@
             });
     },
 
+    pesquisar: () => {
+        var nome = document.getElementById("pesquisaEditora").value;
+        HTTPClient.get("/Editora/Pesquisar?nome=" + nome)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(dados => {
+                var table = "";
+                debugger
+                dados.forEach(item => {
+                    table += `<tr>
+                        <td>${item.id}</td>
+                        <td>${item.nome}</td>
+                        <td>${item.descricao}</td>
+                        <td>${item.telefone}</td>
+                        <td onclick='indexEditora.apagar(${item.id})'>X</td>
+                        <td onclick='indexEditora.alterar(${item.id})'>▓</td>
+                              </tr>`;
+                });
+                
+                document.getElementById("corpo-tabela").innerHTML = table;
+                document.getElementById("pesquisaEditora").value = "";
+            }).catch(function (error) {
+                console.error(error);
+            });
+    },
+
     enviar: () => {
 
         let dados = {

@@ -37,10 +37,7 @@ namespace Engenharia2.Models
         public string Telefone { get => telefone; set => telefone = value; }
         public Administrador Administrador { get => administrador; set => administrador = value; }
 
-        public List<Editora> obterTodasEditoras()
-        {
-            return new DAL.EditoraDAL().selecionarTodos();
-        }
+        
         public string Gravar(System.Text.Json.JsonElement dados)
         {
             string msg = "Falha ao Gravar Editora!";
@@ -71,9 +68,24 @@ namespace Engenharia2.Models
             return msg;
         }
 
+        public string Deletar(int id)
+        {
+            return new EditoraDAL().deletar(id);
+        }
+
         public Editora obterEditoraPorID(int id)
         {
             return new DAL.EditoraDAL().BuscaEditoraPorId(id);
+        }
+
+        public List<Editora> obterTodasEditoras()
+        {
+            return new DAL.EditoraDAL().selecionarTodos();
+        }
+
+        public List<Editora> BuscarEditoraPorNome(string nome)
+        {
+            return new DAL.EditoraDAL().BuscaEditoraPorNome(nome);
         }
     }
 }
