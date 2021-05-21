@@ -27,6 +27,34 @@
             });
     },
 
+    pesquisar: () => {
+        var cpf = document.getElementById("pesquisaLeitor").value;
+        HTTPClient.get("/Leitor/Pesquisar?cpf=" + cpf)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(dado => {
+                var table = "";
+                var date;
+                debugger
+                date = new Date(`${dado.dataNasc}`).toLocaleDateString().substr(0, 10);
+                table += `<tr>
+                    <td>${dado.id}</td>
+                    <td>${dado.nome}</td>
+                    <td>${dado.cpf}</td>
+                    <td>${dado.endereco}</td>
+                    <td>${date}</td>
+                    <td onclick='indexLeitor.apagar(${dado.id})'>X</td>
+                    <td onclick='indexLeitor.alterar(${dado.id})'>▓</td>
+                            </tr>`;;
+
+                document.getElementById("corpo-tabela").innerHTML = table;
+                document.getElementById("pesquisaLeitor").value = "";
+            }).catch(function (error) {
+                console.error(error);
+            });
+    },
+
     enviar: () => {
 
         let dados = {

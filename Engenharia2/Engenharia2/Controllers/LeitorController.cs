@@ -30,6 +30,12 @@ namespace Engenharia2.Controllers
             return Json(new Models.Leitor().selecionarTodos());
         }
 
+        [HttpGet]
+        public IActionResult Pesquisar(string cpf)
+        {
+            return Json(new Models.Leitor().BuscarLeitorPorCPF(cpf));
+        }
+
         [HttpPut]
         public IActionResult Alterar(int id)
         {

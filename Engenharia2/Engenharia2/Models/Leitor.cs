@@ -94,5 +94,10 @@ namespace Engenharia2.Models
         {
             return new LeitorDAL().BuscaLeitorPorId(id);
         }
+
+        public Leitor BuscarLeitorPorCPF(string cpf)
+        {
+            return new LeitorDAL().BuscaLeitorPorCPF(cpf);
+        }
     }
 }

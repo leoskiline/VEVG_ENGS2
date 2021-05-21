@@ -1,11 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Cadastrar Leitor";
+    ViewData["Title"] = "Gerenciar Leitor";
 }
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Pagina Cadastro de Leitor</h1>
+                <h1 class="m-0">Pagina de Gerenciamento do Leitor</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -55,22 +55,30 @@
                 </div>
 
             </form>
-
-            <table id="tabela" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>Endereco</th>
-                        <th>Data de Nascimento</th>
-                        <th>Apagar</th>
-                        <th>Alterar</th>
-                    </tr>
-                </thead>
-                <tbody id="corpo-tabela">
-                </tbody>
-            </table>
+            <div class="center">
+                <div class="row">
+                    <h2 class="m-1">Lista de Leitores</h2>
+                    <p class="col-sm-5"></p>
+                    <input type="text" class="form-control col-sm-2 m-1" id="pesquisaLeitor" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" placeholder="Digite o CPF do leitor" value="" />
+                    <input type="button" class="form-control col-1 btn-dark m-1" value="Pesquisar" onclick="indexLeitor.pesquisar()" />
+                    <input type="button" class="form-control col-1 btn-default m-1" value="Listar Todos" onclick="indexLeitor.carregar()" />
+                </div>
+                <table id="tabela" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Endereco</th>
+                            <th>Data de Nascimento</th>
+                            <th>Apagar</th>
+                            <th>Alterar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpo-tabela">
+                    </tbody>
+                </table>
+            </div>
         </div>
         <!-- /.row -->
     </div><!-- /.container-fluid -->

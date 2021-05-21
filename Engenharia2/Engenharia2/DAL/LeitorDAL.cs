@@ -114,5 +114,30 @@ namespace Engenharia2.DAL
 
 
         }
+
+        public Leitor BuscaLeitorPorCPF(string cpf)
+        {
+            string sql = "SELECT * FROM leitor WHERE CPF=@cpf";
+            _bd.LimparParametros();
+            _bd.AdicionarParametro("@cpf", cpf);
+            _bd.AbrirConexao();
+            DataTable dt = _bd.ExecutarSelect(sql);
+            _bd.FecharConexao();
+            Leitor leitor = null;
+
+            if (dt.Rows.Count > 0)
+            {
+                leitor = new Leitor();
+                leitor.Id = Convert.ToInt32(dt.Rows[0]["idLeitor"].ToString());
+                leitor.Nome = dt.Rows[0]["Nome"].ToString();
+                leitor.Cpf = dt.Rows[0]["CPF"].ToString();
+                leitor.Endereco = dt.Rows[0]["Endereco"].ToString();
+                leitor.DataNasc = Convert.ToDateTime(dt.Rows[0]["DataNasc"].ToString());
+            }
+
+            return leitor;
+
+
+        }
     }
 }
