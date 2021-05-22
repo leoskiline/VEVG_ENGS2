@@ -21,11 +21,12 @@
 <div class="content">
     <div class="container-fluid">
         <div class="">
-            <form class="form-horizontal">
+            <form id="autor-fdados" class="form-horizontal">
+                <p id="id" style="display:none;">0</p>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="nomeAutor">Nome:</label>
+                    <label class="control-label col-sm-2" for="nome">Nome:</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" id="nomeAutor" placeholder="Digite o Nome do Autor">
+                        <input type="text" class="form-control" id="nome" placeholder="Digite o Nome do Autor">
                     </div>
                 </div>
 
@@ -37,6 +38,28 @@
                 </div>
 
             </form>
+
+            <div class="center">
+                <div class="row">
+                    <h2 class="m-1">Lista de Autores</h2>
+                    <p class="col-sm-5"></p>
+                    <input type="text" class="form-control col-sm-2 m-1" id="pesquisaAutor" placeholder="Digite o nome do autor(a)" value="" />
+                    <input type="button" class="form-control col-1 btn-dark m-1" value="Pesquisar" onclick="indexAutor.pesquisar()" />
+                    <input type="button" class="form-control col-1 btn-default m-1" value="Listar Todos" onclick="indexAutor.carregar()" />
+                </div>
+                <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Apagar</th>
+                            <th>Alterar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpo-tabela">
+                    </tbody>
+                </table>
+            </div>
         </div>
         <!-- /.row -->
     </div><!-- /.container-fluid -->

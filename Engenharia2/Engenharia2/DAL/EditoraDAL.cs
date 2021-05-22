@@ -48,7 +48,7 @@ namespace Engenharia2.DAL
 
         public string alterar(Editora editora)
         {
-            string msg = "Falha ao Deletar Editora";
+            string msg = "Falha ao Alterar Editora";
             string sql = "UPDATE editora SET nome = @nome, descricao=@descricao, telefone=@telefone WHERE idEditora='" + editora.Id + "'";
 
             _bd.LimparParametros();
@@ -90,32 +90,7 @@ namespace Engenharia2.DAL
             return editoras;
         }
 
-        public Editora BuscaEditora(string nome)
-        {
-            string sql = "SELECT * FROM editora WHERE Nome=@nome";
-            _bd.LimparParametros();
-            _bd.AdicionarParametro("@nome", nome);
-            _bd.AbrirConexao();
-            DataTable dt = _bd.ExecutarSelect(sql);
-            _bd.FecharConexao();
-            Editora editora = null;
-            if (dt.Rows.Count > 0)
-            {
-                editora = new Editora();
-
-                AdministradorDAL adm = new AdministradorDAL();  
-                editora.Id = Convert.ToInt32(dt.Rows[0]["idEditora"]);
-                editora.Nome = dt.Rows[0]["Nome"].ToString();
-                editora.Descricao = dt.Rows[0]["Descricao"].ToString();
-                editora.Telefone = dt.Rows[0]["Telefone"].ToString();
-                editora.Administrador = adm.obter("Leonardo Custodio dos Santos");
-
-            }
-
-            return editora;
-
-
-        }
+        
 
         public Editora BuscaEditoraPorId(int id)
         {
@@ -126,12 +101,13 @@ namespace Engenharia2.DAL
             DataTable dt = _bd.ExecutarSelect(sql);
             _bd.FecharConexao();
             Editora editora = null;
+            AdministradorDAL adm = new AdministradorDAL();
 
             if (dt.Rows.Count > 0)
             {
                 editora = new Editora();
 
-                AdministradorDAL adm = new AdministradorDAL();
+                
                 editora.Id = Convert.ToInt32(dt.Rows[0]["idEditora"]);
                 editora.Nome = dt.Rows[0]["Nome"].ToString();
                 editora.Descricao = dt.Rows[0]["Descricao"].ToString();

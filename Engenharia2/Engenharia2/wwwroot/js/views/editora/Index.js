@@ -12,6 +12,7 @@
                     table += `<tr>
                         <td>${item.id}</td>
                         <td>${item.nome}</td>
+
                         <td>${item.descricao}</td>
                         <td>${item.telefone}</td>
                         <td onclick='indexEditora.apagar(${item.id})'>X</td>
@@ -33,7 +34,6 @@
             })
             .then(dados => {
                 var table = "";
-                debugger
                 dados.forEach(item => {
                     table += `<tr>
                         <td>${item.id}</td>
@@ -68,6 +68,9 @@
             .then(dados => {
                 if (dados.msg == "Falha ao Gravar Editora!") {
                     document.getElementById("gravou").innerHTML = "<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button><i class='fa fa-times-circle'></i> "+dados.msg+"!</div>";
+                }
+                else if (dados.msg == "Falha ao Alterar Editora!") {
+                    document.getElementById("gravou").innerHTML = "<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button><i class='fa fa-times-circle'></i> " + dados.msg + "!</div>";
                 }
                 else if (dados.msg == "Preencha Todos os Campos"){
                     document.getElementById("gravou").innerHTML = "<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>×</span></button><i class='fa fa-times-circle'></i> " + dados.msg + "!</div>";

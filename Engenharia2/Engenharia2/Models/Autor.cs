@@ -44,16 +44,47 @@ namespace Engenharia2.Models
         {
             string msg = "Falha ao Gravar Autor!";
             AutorDAL autordal = new AutorDAL();
-            Autor autor = new Autor();
+            Autor autor = autordal.BuscaAutorPorId(Convert.ToInt32(dados.GetProperty("id").ToString()));
+            
+            
 
-            autor.Nome = dados.GetProperty("nome").ToString();
-
-
-            if (autor.Nome.Length > 0)
-                msg = autordal.gravar(autor);
+            if(autor == null)
+            {
+                autor = new Autor();
+                autor.Id = Convert.ToInt32(dados.GetProperty("id").ToString());
+                autor.Nome = dados.GetProperty("nome").ToString();
+                if (autor.Nome.Length > 0)
+                    msg = autordal.gravar(autor);
+                else
+                    msg = "Preencha Todos os Campos";
+            }
             else
-                msg = "Preencha Todos os Campos";
+            {
+                autor = new Autor();
+                autor.Id = Convert.ToInt32(dados.GetProperty("id").ToString());
+                autor.Nome = dados.GetProperty("nome").ToString();
+                if (autor.Nome.Length > 0)
+                    msg = autordal.alterar(autor);
+                else
+                    msg = "Preencha Todos os Campos";
+            }
             return msg;
         }
+
+        public string Deletar(int id)
+        {
+            return new AutorDAL().deletar(id);
+        }
+
+        public Autor obterAutorPorID(int id)
+        {
+            return new DAL.AutorDAL().BuscaAutorPorId(id);
+        }
+
+        public List<Autor> BuscarAutorPorNome(string nome)
+        {
+            return new DAL.AutorDAL().BuscaAutorPorNome(nome);
+        }
+
     }
 }

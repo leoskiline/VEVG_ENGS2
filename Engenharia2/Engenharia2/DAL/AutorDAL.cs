@@ -32,9 +32,53 @@ namespace Engenharia2.DAL
             return msg;
         }
 
+        public string deletar(int id)
+        {
+            string msg = "Falha ao Deletar Autor(a)";
+            string sql = "DELETE FROM autor WHERE idAutor='" + id + "'";
+
+            string sqlAux = "SELECT * FROM livro_has_autor WHERE Autor_IdAutor='" + id + "'";
+            
+            _bd.AbrirConexao();
+            DataTable dt = _bd.ExecutarSelect(sqlAux);
+            
+            if (dt.Rows.Count > 0)
+            {
+                msg = "Autor(a) possui vinculo com um Livro, porfavor deletar o Livro primeiramente!";
+            }
+            else
+            {
+                int rows = _bd.ExecutarNonQuery(sql);
+                if(rows > 0)
+                {
+                    msg = "Autor(a) deletado(a) com Sucesso!";
+                }
+            }
+            _bd.FecharConexao();
+            return msg;
+        }
+
+        public string alterar(Autor autor)
+        {
+            string msg = "Falha ao Alterar Autor";
+            string sql = "UPDATE autor SET nome = @nome WHERE idAutor='" + autor.Id + "';";
+
+            _bd.LimparParametros();
+            _bd.AdicionarParametro("@nome", autor.Nome);
+            _bd.AbrirConexao();
+            int rows = _bd.ExecutarNonQuery(sql);
+            _bd.FecharConexao();
+
+            if (rows > 0)
+            {
+                msg = "Autor(a) alterado(a) com Sucesso!";
+            }
+            return msg;
+        }
+
         public Autor BuscaAutorPorId(int id)
         {
-            string sql = "SELECT * FROM autor WHERE idAutor=@id";
+            string sql = "SELECT * FROM autor WHERE idAutor="+ id;
             _bd.LimparParametros();
             _bd.AdicionarParametro("@id", id.ToString());
             _bd.AbrirConexao();
@@ -44,40 +88,38 @@ namespace Engenharia2.DAL
             AdministradorDAL adm = new AdministradorDAL();
             if(dt.Rows.Count > 0)
             {
-                autor = new Autor()
-                {
-                    Id = Convert.ToInt32(dt.Rows[0]["idAutor"]),
-                    Nome = dt.Rows[0]["Nome"].ToString(),
-                    Administrador = adm.obter("Leonardo Custodio dos Santos")
-                };
+                autor = new Autor();
+                autor.Id = Convert.ToInt32(dt.Rows[0]["idAutor"]);
+                autor.Nome = dt.Rows[0]["Nome"].ToString();
+                autor.Administrador = adm.obter("Leonardo Custodio dos Santos");
             }
 
             return autor;
-
-
         }
 
-        public Autor BuscaAutorPorNome(string nome)
+        public List<Autor> BuscaAutorPorNome(string nome)
         {
-            string sql = "SELECT * FROM autor WHERE Nome=@nome";
-            _bd.LimparParametros();
-            _bd.AdicionarParametro("@nome", nome);
+            List<Autor> autores = new List<Autor>();
+            string sql = "SELECT * FROM autor WHERE Nome LIKE '%" + nome + "%'";
+           // _bd.LimparParametros();
+            //_bd.AdicionarParametro("@nome", nome);
+
             _bd.AbrirConexao();
             DataTable dt = _bd.ExecutarSelect(sql);
             _bd.FecharConexao();
-            Autor autor = null;
-            AdministradorDAL adm = new AdministradorDAL();
-            if (dt.Rows.Count > 0)
+
+            foreach (DataRow row in dt.Rows)
             {
-                autor = new Autor()
+                var autor = new Autor()
                 {
                     Id = Convert.ToInt32(dt.Rows[0]["idAutor"]),
                     Nome = dt.Rows[0]["Nome"].ToString(),
-                    Administrador = adm.obter("Leonardo Custodio dos Santos")
+                    Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos")
                 };
+                autores.Add(autor);
             }
 
-            return autor;
+            return autores;
         }
 
         public List<Autor> selecionarTodos()
