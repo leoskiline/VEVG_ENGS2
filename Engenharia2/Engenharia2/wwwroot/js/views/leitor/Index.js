@@ -29,16 +29,21 @@
 
     pesquisar: () => {
         var cpf = document.getElementById("pesquisaLeitor").value;
+        if (cpf.length < 14) {
+            alert("Digite o CPF Completo");
+            return;
+        }
         HTTPClient.get("/Leitor/Pesquisar?cpf=" + cpf)
             .then(function (response) {
                 return response.json();
             })
             .then(dado => {
-                var table = "";
-                var date;
-                debugger
-                date = new Date(`${dado.dataNasc}`).toLocaleDateString().substr(0, 10);
-                table += `<tr>
+                if (dado != null) {
+                    var table = "";
+                    var date;
+                    debugger
+                    date = new Date(`${dado.dataNasc}`).toLocaleDateString().substr(0, 10);
+                    table += `<tr>
                     <td>${dado.id}</td>
                     <td>${dado.nome}</td>
                     <td>${dado.cpf}</td>
@@ -48,8 +53,11 @@
                     <td onclick='indexLeitor.alterar(${dado.id})'>▓</td>
                             </tr>`;;
 
-                document.getElementById("corpo-tabela").innerHTML = table;
-                document.getElementById("pesquisaLeitor").value = "";
+                    document.getElementById("corpo-tabela").innerHTML = table;
+                    document.getElementById("pesquisaLeitor").value = "";
+                }
+                else
+                    alert("CPF Nao Encontrado!");
             }).catch(function (error) {
                 console.error(error);
             });

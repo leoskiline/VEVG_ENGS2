@@ -17,7 +17,7 @@ namespace Engenharia2.Controllers
 
         public IActionResult Gravar([FromBody] System.Text.Json.JsonElement dados)
         {
-            string msg;
+            string msg = "Falhou";
             msg = new Exemplar().Gravar(dados);
             return Json(new
             {
@@ -28,6 +28,31 @@ namespace Engenharia2.Controllers
         public IActionResult ObterLivros()
         {
             return Json(new Models.Livro().obterTodosLivros().AsEnumerable());
+        }
+        [HttpGet]
+        public IActionResult Listar()
+        {
+            return Json(new Exemplar().ObterTodosExemplares());
+        }
+        [HttpGet]
+        public IActionResult Pesquisar(string nome)
+        {
+            return Json(new Exemplar().ObterExemplares(nome));
+        }
+        [HttpDelete]
+        public IActionResult Deletar(int id)
+        {
+            string msg = "";
+            msg = new Exemplar().Deletar(id);
+            return Json(new { msg });
+        }
+
+        public IActionResult Alterar(int id)
+        {
+            Exemplar exemplar = new Exemplar().BuscarExemplarID(id);
+            return Json(new {
+                exemplar
+            });
         }
     }
 }

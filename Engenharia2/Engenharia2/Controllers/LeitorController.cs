@@ -39,7 +39,6 @@ namespace Engenharia2.Controllers
         [HttpPut]
         public IActionResult Alterar(int id)
         {
-            string msg = "";
             Leitor leitor = new Leitor().BuscarLeitorPorId(id);
             return Json(new
             {
