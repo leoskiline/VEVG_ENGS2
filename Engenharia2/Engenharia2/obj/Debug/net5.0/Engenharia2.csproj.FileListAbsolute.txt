@@ -2078,3 +2078,6 @@ C:\Users\gcgon\OneDrive\Área de Trabalho\ENG2\VEVG_ENGS2\Engenharia2\Engenharia
 C:\Users\gcgon\OneDrive\Área de Trabalho\ENG2\VEVG_ENGS2\Engenharia2\Engenharia2\obj\Debug\net5.0\ref\Engenharia2.dll
 C:\Users\gcgon\OneDrive\Área de Trabalho\ENG2\VEVG_ENGS2\Engenharia2\Engenharia2\obj\Debug\net5.0\Engenharia2.pdb
 C:\Users\gcgon\OneDrive\Área de Trabalho\ENG2\VEVG_ENGS2\Engenharia2\Engenharia2\obj\Debug\net5.0\Engenharia2.genruntimeconfig.cache
+C:\Users\Leonardo\Documents\GitHub\VEVG_ENGS2\Engenharia2\Engenharia2\obj\Debug\net5.0\Razor\Views\Emprestimo\Index.cshtml.g.cs
+C:\Users\Leonardo\Documents\GitHub\VEVG_ENGS2\Engenharia2\Engenharia2\obj\Debug\net5.0\Razor\Views\Emprestimo\Cadastrar.cshtml.g.cs
+C:\Users\Leonardo\Documents\GitHub\VEVG_ENGS2\Engenharia2\Engenharia2\obj\Debug\net5.0\Razor\Views\Emprestimo\Devolver.cshtml.g.cs

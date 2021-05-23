@@ -40,7 +40,6 @@ namespace Engenharia2.Controllers
         [HttpPut]
         public IActionResult Alterar(int id)
         {
-            string msg = "";
             Autor autor = new Autor().obterAutorPorID(id);
             return Json(new
             {
