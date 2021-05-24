@@ -43,7 +43,7 @@ namespace Engenharia2.Models
             ReservaDAL reservadal = new ReservaDAL();
             Livro livro = new LivroDAL().seleciona(Convert.ToInt32(dados.GetProperty("livro").ToString()));
             Leitor leitor = new LeitorDAL().BuscaLeitorPorCPF(dados.GetProperty("cpf").ToString());
-            bool reservado = reservadal.isReservado(livro.Id);
+            bool reservado = reservadal.isReservado(leitor.Id, livro.Id);
 
             if (livro.Qtd > 0 && !reservado)
                 msg = "Livro disponível!, vá para tela de empréstimo";

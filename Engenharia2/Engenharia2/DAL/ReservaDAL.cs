@@ -59,12 +59,16 @@ namespace Engenharia2.DAL
             return msg;
 
         }
-
-        public bool isReservado(int id)
+        
+        public bool isReservado(int leitorid, int livroid)
         {
-            string sql = "SELECT * FROM reserva WHERE Leitor_idLeitor =" + id;
+            string sqlBusca = "SELECT * FROM reserva WHERE Leitor_idLeitor = @leitorid AND Livro_idLivro = @livroid";
+            _bd.LimparParametros();
+            _bd.AdicionarParametro("@leitorid", Convert.ToString(leitorid));
+            _bd.AdicionarParametro("@livroid", Convert.ToString(livroid));
+
             _bd.AbrirConexao();
-            DataTable dt = _bd.ExecutarSelect(sql);
+            DataTable dt = _bd.ExecutarSelect(sqlBusca);
             _bd.FecharConexao();
             if (dt.Rows.Count > 0)
                 return true;
