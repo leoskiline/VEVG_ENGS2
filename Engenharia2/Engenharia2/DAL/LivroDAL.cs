@@ -41,6 +41,33 @@ namespace Engenharia2.DAL
             return msg;
         }
 
+        public string deletar(int id)
+        {
+            string msg = "Falha ao deletar Livro!";
+            string sql = "DELETE FROM livro_has_autor WHERE Livro_idLivro=@idLivro";
+            string sql2 = "DELETE FROM exemplar WHERE Livro_idLivro=@idLivro";
+            string sql3 = "DELETE FROM livro WHERE idLivro=@idLivro";
+            _bd.LimparParametros();
+            _bd.AdicionarParametro("@idLivro", id.ToString());
+            int rows, rows2,rows3;
+            _bd.AbrirConexao();
+            rows = _bd.ExecutarNonQuery(sql);
+            rows2 = _bd.ExecutarNonQuery(sql2);
+            rows3 = _bd.ExecutarNonQuery(sql3);
+            _bd.FecharConexao();
+            if (rows > 0 || rows2 > 0 || rows3 > 0)
+            {
+                msg = "Livro Deletado com Sucesso!";
+            }
+            
+            return msg;
+        }
+
+        public string alterar(Livro livro)
+        {
+            return "Falha ao Alterar";
+        }
+
         //Seleção simples de Livros
         public List<Livro> selecionarTodos()
         {
@@ -64,25 +91,102 @@ namespace Engenharia2.DAL
             return livros;
         }
 
+        public List<Livro> pesquisarLivros(string termo,string tipo)
+        {
+            string sql = "";
+            if (tipo == "nome")
+            {
+                sql = "SELECT livro.idLivro,livro.Nome,livro.qtd,livro.Editora_idEditora,livro.Administrador_idAdministrador,autor.idAutor FROM livro " +
+                      "INNER JOIN editora ON editora.idEditora = livro.Editora_idEditora " +
+                      "INNER JOIN livro_has_autor ON livro_has_autor.Livro_idLivro = livro.idLivro " +
+                      "INNER JOIN autor ON livro_has_autor.Autor_idAutor = autor.idAutor " +
+                      "where livro.Nome LIKE '%"+termo+"%'";
+            }
+            else if(tipo == "editora")
+            {
+                sql = "SELECT livro.idLivro,livro.Nome,livro.qtd,livro.Editora_idEditora,livro.Administrador_idAdministrador,autor.idAutor FROM livro " +
+                      "INNER JOIN editora ON editora.idEditora = livro.Editora_idEditora " +
+                      "INNER JOIN livro_has_autor ON livro_has_autor.Livro_idLivro = livro.idLivro " +
+                      "INNER JOIN autor ON livro_has_autor.Autor_idAutor = autor.idAutor " +
+                      "where editora.Nome LIKE '%"+termo+"%'";
+            }
+            _bd.AbrirConexao();
+            DataTable dt = _bd.ExecutarSelect(sql);
+            _bd.FecharConexao();
+            List<Livro> livros = new List<Livro>();
+            if(dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    if(livros.Exists(l => l.Id == Convert.ToInt32(row[0])))
+                    {
+                        foreach (Livro l in livros)
+                        {
+                            if (l.Id == Convert.ToInt32(row[0]))
+                            {
+                                l.Autor.Add(new AutorDAL().BuscaAutorPorId(Convert.ToInt32(row[5])));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        List<int> autoresId = new List<int>();
+                        Livro livro = new Livro();
+                        livro.Id = Convert.ToInt32(row[0]);
+                        livro.Nome = row[1].ToString();
+                        livro.Qtd = Convert.ToInt32(row[2]);
+                        livro.Editora = new EditoraDAL().BuscaEditoraPorId(Convert.ToInt32(row[3]));
+                        livro.Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos");
+                        autoresId.Add(Convert.ToInt32(row[5]));
+                        livro.Autor = new AutorDAL().obterAutoresPorListID(autoresId);
+                        livros.Add(livro);
+                    }
+                }
+            }
+            return livros;
+        }
+
         public Livro seleciona(int id){
-            string sql = "SELECT * FROM livro where idLivro=@id";
+            string sql = "SELECT livro.idLivro,livro.Nome,livro.qtd,livro.Editora_idEditora,livro.Administrador_idAdministrador,autor.idAutor FROM livro " +
+                       "INNER JOIN editora ON editora.idEditora = livro.Editora_idEditora " +
+                       "INNER JOIN livro_has_autor ON livro_has_autor.Livro_idLivro = livro.idLivro " +
+                       "INNER JOIN autor ON livro_has_autor.Autor_idAutor = autor.idAutor " +
+                       "where livro.idLivro = @id";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@id", id.ToString());
             _bd.AbrirConexao();
-            Livro livro = null;
             DataTable dt = _bd.ExecutarSelect(sql);
             _bd.FecharConexao();
-            EditoraDAL edal = new EditoraDAL();
-            if(dt.Rows.Count>0)
+            List<Livro> livros = new List<Livro>();
+            Livro livro = null;
+            if (dt.Rows.Count > 0)
             {
-                livro = new Livro()
+                foreach (DataRow row in dt.Rows)
                 {
-                    Id = Convert.ToInt32(dt.Rows[0]["idLivro"]),
-                    Nome = dt.Rows[0]["Nome"].ToString(),
-                    Editora = edal.BuscaEditoraPorId(Convert.ToInt32(dt.Rows[0][2])),
-                    Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos"),
-                    Qtd = Convert.ToInt32(dt.Rows[0]["qtd"].ToString())
-                };
+                    if (livros.Exists(l => l.Id == Convert.ToInt32(row[0])))
+                    {
+                        foreach (Livro l in livros)
+                        {
+                            if (l.Id == Convert.ToInt32(row[0]))
+                            {
+                                l.Autor.Add(new AutorDAL().BuscaAutorPorId(Convert.ToInt32(row[5])));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        List<int> autoresId = new List<int>();
+                        livro = new Livro();
+                        livro.Id = Convert.ToInt32(row[0]);
+                        livro.Nome = row[1].ToString();
+                        livro.Qtd = Convert.ToInt32(row[2]);
+                        livro.Editora = new EditoraDAL().BuscaEditoraPorId(Convert.ToInt32(row[3]));
+                        livro.Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos");
+                        autoresId.Add(Convert.ToInt32(row[5]));
+                        livro.Autor = new AutorDAL().obterAutoresPorListID(autoresId);
+                        livros.Add(livro);
+                    }
+                }
             }
             return livro;
         }

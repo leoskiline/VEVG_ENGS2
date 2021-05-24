@@ -59,5 +59,31 @@ namespace Engenharia2.Models
             msg = livrodal.gravar(livro);
             return msg;
         }
+
+        public string Alterar(string nome, List<Autor> autor, Editora editora, Administrador adm, int qtd)
+        {
+            string msg = "Falha ao Gravar Livro!";
+            LivroDAL livrodal = new LivroDAL();
+            Livro livro = new Livro(nome, editora, adm, autor, qtd);
+            msg = livrodal.alterar(livro);
+            return msg;
+        }
+
+        public List<Livro> PesquisarLivros(string termo,string tipo)
+        {
+            List<Livro> livros = new LivroDAL().pesquisarLivros(termo, tipo);
+
+            return livros;
+        }
+
+        public string DeletarLivro(int id)
+        {
+            return new LivroDAL().deletar(id);
+        }
+
+        public Livro buscarLivroPorID(int id)
+        {
+            return new LivroDAL().seleciona(id);
+        }
     }
 }

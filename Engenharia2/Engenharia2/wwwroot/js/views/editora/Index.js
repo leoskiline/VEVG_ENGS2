@@ -35,6 +35,7 @@
             .then(dados => {
                 var table = "";
                 dados.forEach(item => {
+                    debugger
                     table += `<tr>
                         <td>${item.id}</td>
                         <td>${item.nome}</td>
