@@ -146,6 +146,8 @@ namespace Engenharia2.DAL
             return livros;
         }
 
+        
+
         public Livro seleciona(int id){
             string sql = "SELECT livro.idLivro,livro.Nome,livro.qtd,livro.Editora_idEditora,livro.Administrador_idAdministrador,autor.idAutor FROM livro " +
                        "INNER JOIN editora ON editora.idEditora = livro.Editora_idEditora " +

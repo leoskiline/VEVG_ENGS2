@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="cpf">CPF:</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" id="cpf" placeholder="Digite o CPF do Leitor">
+                        <input type="text" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" class="form-control" id="cpf" placeholder="Digite o CPF do Leitor">
                     </div>
                 </div>
 
@@ -83,5 +83,6 @@
 @section javascript {
     <script src="~/js/views/reserva/Index.js"></script>
     <script src="~/js/views/reserva/ListarLivros.js"></script>
+    <script src="~/js/views/reserva/mascaraCPF.js"></script>
     <script src="~/lib/HTTPClient.js"></script>
 }

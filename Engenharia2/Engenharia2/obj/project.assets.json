@@ -6978,11 +6978,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gcgon\\OneDrive\\Área de Trabalho\\ENG2\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\Engenharia2.csproj",
+      "projectUniqueName": "C:\\Users\\gcgon\\OneDrive\\Área de Trabalho\\TESTE\\ComponentModelCache\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\Engenharia2.csproj",
       "projectName": "Engenharia2",
-      "projectPath": "C:\\Users\\gcgon\\OneDrive\\Área de Trabalho\\ENG2\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\Engenharia2.csproj",
+      "projectPath": "C:\\Users\\gcgon\\OneDrive\\Área de Trabalho\\TESTE\\ComponentModelCache\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\Engenharia2.csproj",
       "packagesPath": "C:\\Users\\gcgon\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gcgon\\OneDrive\\Área de Trabalho\\ENG2\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\obj\\",
+      "outputPath": "C:\\Users\\gcgon\\OneDrive\\Área de Trabalho\\TESTE\\ComponentModelCache\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\gcgon\\AppData\\Roaming\\NuGet\\NuGet.Config",

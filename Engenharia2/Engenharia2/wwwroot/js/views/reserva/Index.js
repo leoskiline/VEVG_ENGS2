@@ -36,8 +36,8 @@
                 dados.forEach(item => {
                     table += `<tr>
                         <td>${item.id}</td>
-                        <td>${item.cpf}</td>
-                        <td>${item.livro}</td>
+                        <td>${item.leitor.cpf}</td>
+                        <td>${item.livro.nome}</td>
                         <td>${item.status}</td>
                         <td onclick='indexReserva.cancelar(${item.id})'>X</td>
                               </tr>`;

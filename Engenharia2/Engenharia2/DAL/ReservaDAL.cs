@@ -22,7 +22,10 @@ namespace Engenharia2.DAL
             _bd.AdicionarParametro("@idlivro", Convert.ToString(reserva.Livro.Id));
             _bd.AdicionarParametro("@status", Convert.ToString(reserva.Status));
 
-            string sqlBusca = "SELECT * FROM reserva WHERE Leitor_idLeitor = " + reserva.Leitor.Id + "AND Livro_idLivro = " + reserva.Livro.Id;
+            string sqlBusca = "SELECT * FROM reserva WHERE Leitor_idLeitor =" + reserva.Leitor.Id + " AND Livro_idLivro = " + reserva.Livro.Id;
+            //_bd.AdicionarParametro("@idleitorBusca", Convert.ToString(reserva.Leitor.Id));
+           // _bd.AdicionarParametro("@idlivroBusca", Convert.ToString(reserva.Livro.Id));
+
             _bd.AbrirConexao();
             DataTable dt = _bd.ExecutarSelect(sqlBusca);
 
@@ -62,13 +65,13 @@ namespace Engenharia2.DAL
         
         public bool isReservado(int leitorid, int livroid)
         {
-            string sqlBusca = "SELECT * FROM reserva WHERE Leitor_idLeitor = @leitorid AND Livro_idLivro = @livroid";
+            string sql = "SELECT * FROM reserva WHERE Leitor_idLeitor = @leitorid AND Livro_idLivro = @livroid";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@leitorid", Convert.ToString(leitorid));
             _bd.AdicionarParametro("@livroid", Convert.ToString(livroid));
 
             _bd.AbrirConexao();
-            DataTable dt = _bd.ExecutarSelect(sqlBusca);
+            DataTable dt = _bd.ExecutarSelect(sql);
             _bd.FecharConexao();
             if (dt.Rows.Count > 0)
                 return true;
@@ -79,7 +82,9 @@ namespace Engenharia2.DAL
         public List<Reserva> BuscarReservaPorCPFEStatus(string cpf, string status)
         {
             List<Reserva> reservas = new List<Reserva>();
-            string sqlLeitor = "SELECT * FROM leitor WHERE CPF =" + cpf;
+            string sqlLeitor = "SELECT * FROM leitor WHERE CPF = @cpf";
+            _bd.LimparParametros();
+            _bd.AdicionarParametro("@cpf", cpf);
             string sql = "";
 
             _bd.AbrirConexao();
@@ -88,11 +93,11 @@ namespace Engenharia2.DAL
             {
                 var idLeitorInt = 0;
                 idLeitorInt = Convert.ToInt32(dtLeitor.Rows[0]["IdLeitor"]);
-                sql = "SELECT * FROM reserva WHERE Leitor_idLeitor = "+ idLeitorInt + "AND Status =" + status;
+                sql = "SELECT * FROM reserva WHERE Leitor_idLeitor = "+ idLeitorInt + " AND Status = '" + status + "'";
             }
             else
             {
-                sql = "SELECT * FROM reserva WHERE Status =" + status;
+                sql = "SELECT * FROM reserva WHERE Status = '" + status + "'";
             }
             
             DataTable dt = _bd.ExecutarSelect(sql);

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fE/eZ5rj3fVD95KxGBte25EnZ0+l3bsOORLv67YKGVkV/XA9do3EJTjooyxn76SZcBnyIRrS2y+gW4EdUWfscg==",
+  "dgSpecHash": "a2PDlR7DXYR9+9GG6lmZXStX7jVTFetP2+BjMAQ+N6Rsq3Z9v3sVC3SUJc6NVSvewEqPylz+ezi/gD907mCawg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\gcgon\\OneDrive\\Área de Trabalho\\ENG2\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\Engenharia2.csproj",
+  "projectFilePath": "C:\\Users\\gcgon\\OneDrive\\Área de Trabalho\\TESTE\\ComponentModelCache\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\Engenharia2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gcgon\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\gcgon\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",
