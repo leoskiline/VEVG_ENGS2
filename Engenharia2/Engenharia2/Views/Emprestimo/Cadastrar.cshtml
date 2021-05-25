@@ -3,3 +3,67 @@
 *@
 @{
 }
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Pagina de Cadastro de Empréstimo</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="~/Home">Home</a></li>
+                    <li class="breadcrumb-item active">Cadastro de empréstimo</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<div class="content" onload="">
+    <div class="container-fluid">
+        <div class="">
+            <form>
+                <div class="form-group">
+                    <label class="control-label col-sm-2"><span style="color:red;">*</span>Nome do livro:</label>
+                    <div class="col-sm-2">
+                        <select class="custom-select" id="livroId" name="livroId">
+                            <!-- Carregado por Ajax -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2"><span style="color:red;">*</span>Nome do leitor:</label>
+                    <div class="col-sm-2">
+                        <select class="custom-select" id="leitorId" name="leitorId">
+                            <!-- Carregado por Ajax -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dataLeitor"><span style="color:red;">*</span>Data de retirada:</label>
+                    <div class="col-sm-2">
+                        <input type="date" class="form-control" id="dataRetirada">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="dataLeitor"><span style="color:red;">*</span>Data de devolução:</label>
+                    <div class="col-sm-2">
+                        <input type="date" class="form-control" id="dataDevolucao">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-success" onclick="indexExemplar.enviar()">Cadastrar</button>
+                    </div><br />
+                    <div class="col-sm-3" id="gravou"></div>
+                </div>
+            </form>            
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
