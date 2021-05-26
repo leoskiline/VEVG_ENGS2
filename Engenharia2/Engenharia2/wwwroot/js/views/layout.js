@@ -1,4 +1,8 @@
-if(localStorage.getItem("role") != "Administrador")
-  elems = document.getElementsByClassName("admin");
-  for( var e in elems)
-    e.style.display = "none";
+if (localStorage.getItem("role") != "Administrador") {
+    debugger
+    elems = document.getElementsByClassName("admin");
+    for (let i = 0; i < elems.length; i++) {
+        elems[i].style.display = "none";
+    }
+}
+  
