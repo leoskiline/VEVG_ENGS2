@@ -10,7 +10,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="~/Home">Home</a></li>
-                    <li class="breadcrumb-item active">Cadastro de Livro</li>
+                    <li class="breadcrumb-item active">Gerenciar Livro</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -23,7 +23,7 @@
         <div class="">
             <form>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="nome">Título:</label>
+                    <label class="control-label col-sm-2" for="nome"><span style="color:red;">*</span>Título:</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" id="nome" placeholder="Digite o Nome do livro">
                         <input type="hidden" id="idLivro" value="0"/>
@@ -31,14 +31,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="nome">Quantidade:</label>
+                    <label class="control-label col-sm-2" for="nome"><span style="color:red;">*</span>Quantidade:</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" id="qtd" placeholder="Digite a Quantidade">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="editora">Editora:</label>
+                    <label class="control-label col-sm-2" for="editora"><span style="color:red;">*</span>Editora:</label>
                     <div class="col-sm-2">
                         <select class="custom-select" id="editoraId" name="editoraId">
                             <!-- Carregado por Ajax -->
@@ -47,12 +47,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="autor">Autor:</label>
+                    <label class="control-label col-sm-2" for="autor"><span style="color:red;">*</span>Autor:</label>
                     <div class="col-sm-2">
                         <select data-select class="custom-select" id="autorId" name="autorId" multiple>
                             <!-- Carregado por Ajax -->
                         </select>
                     </div>
+                    <span>Os campos com <span style="color:red;">*</span> são obrigatórios.</span>
                 </div>
 
 

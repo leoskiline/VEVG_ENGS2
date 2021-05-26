@@ -50,7 +50,7 @@
                 <div class="form-group mt-2">
                     <label class="control-label col-sm-2" for="CPF">CPF:</label>
                     <div class="col-sm-2">
-                        <input type="text" placeholder="Digite o CPF" id="cpf" class="form-control" />
+                        <input type="text" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" placeholder="Digite o CPF" id="cpf" class="form-control" />
                     </div>
                 </div>
 
@@ -62,9 +62,9 @@
                 </div>
 
                 <div class="form-group mt-2 ml-2">
-                    <label class="control-label" for="telefone">Telefone:</label>
+                    <label class="control-label"  for="telefone">Telefone:</label>
                     <div class="col-sm-1 ml-2">
-                        <input type="text" placeholder="Telefone" id="telefone" class="form-control" />
+                        <input type="text" onkeypress="mask(this, mphone);" maxlength="15" placeholder="Telefone" id="telefone" class="form-control" />
                     </div>
                 </div>
 
@@ -90,7 +90,7 @@
 
                 <div class="form-group mt-2">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="button" class="btn btn-success" >Cadastrar</button>
+                        <button type="button" class="btn btn-success">Cadastrar</button>
                     </div><br />
                     <div class="col-sm-3" id="gravou"></div>
                 </div>
@@ -102,8 +102,8 @@
                     <h2 class="m-1">Lista de Usuarios</h2>
                     <p class="col-sm-5"></p>
                     <input type="text" class="form-control col-sm-2 m-1" id="pesquisaUsuario" placeholder="Digite o E-mail do Usuario" value="" />
-                    <input type="button" class="form-control col-1 btn-dark m-1" value="Pesquisar"  />
-                    <input type="button" class="form-control col-1 btn-default m-1" value="Listar Todos"  />
+                    <input type="button" class="form-control col-1 btn-dark m-1" value="Pesquisar" />
+                    <input type="button" class="form-control col-1 btn-default m-1" value="Listar Todos" />
                 </div>
                 <table id="example2" class="table table-bordered table-hover">
                     <thead>
@@ -128,4 +128,6 @@
 
 @section javascript {
     <script src="~/lib/HTTPClient.js"></script>
+    <script src="~/js/views/exemplar/mascaraCPF.js"></script>
+    <script src="~/js/views/editora/mascaraTel.js"></script>
 }

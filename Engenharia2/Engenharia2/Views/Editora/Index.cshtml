@@ -10,7 +10,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="~/Home">Home</a></li>
-                    <li class="breadcrumb-item active">Cadastro de Editora</li>
+                    <li class="breadcrumb-item active">Gerenciar Editora</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -24,22 +24,23 @@
             <form id="editora-fdados" class="form-horizontal">
                 <p id="id" style="display:none;">0</p>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="nome">Nome:</label>
+                    <label class="control-label col-sm-2" for="nome"><span style="color:red;">*</span>Nome:</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" id="nome" placeholder="Digite o Nome da Editora">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="descricao">Descricao:</label>
+                    <label class="control-label col-sm-2" for="descricao"><span style="color:red;">*</span>Descricao:</label>
                     <div class="col-sm-7">
                         <textarea class="form-control" id="descricao" placeholder="Digite uma Breve Descricao"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-sm-2" for="telefone">Telefone:</label>
+                    <label class="control-label col-sm-2" for="telefone"><span style="color:red;">*</span>Telefone:</label>
                     <div class="col-sm-2">
-                        <input type="tel" class="form-control" id="telefone" onkeypress="mask(this, mphone);" maxlength="15" ="mask(this, mphone);" placeholder="Digite o Telefone">
+                        <input type="tel" class="form-control" id="telefone" onkeypress="mask(this, mphone);" maxlength="15" placeholder="Digite o Telefone">
                     </div>
+                    <span>Os campos com <span style="color:red;">*</span> são obrigatórios.</span>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
