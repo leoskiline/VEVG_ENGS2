@@ -8,13 +8,16 @@
             })
             .then(dados => {
                 var table = "";
+                var dataEmp, dataPrevistaDevol;
                 dados.forEach(item => {
+                    dataEmp = new Date(`${item.dataEmp}`).toLocaleDateString().substr(0, 10);
+                    dataPrevistaDevol = new Date(`${item.dataPrevistaDevol}`).toLocaleDateString().substr(0, 10);
                     table += `<tr>
                         <td>${item.id}</td>
                         <td>${item.leitor.cpf}</td>
-                        <td><select class="form-control">${indexEmprestimo.carregarLivros(item.exemplar.livro)}</select></td>
-                        <td>${item.dataEmp}</td>
-                        <td>${item.dataPrevistaDevol}</td>
+                        <td><select class="form-control">${indexEmprestimo.carregarLivros(item.exemplar)}</select></td>
+                        <td>${dataEmp}</td>
+                        <td>${dataPrevistaDevol}</td>
                         <td>${item.situacao}</td>
                         <td onclick='indexEmprestimo.devolver(${item.id})'>X</td>
                               </tr>`;
@@ -26,10 +29,10 @@
             });
     },
 
-    carregarLivros: (livros) => {
+    carregarLivros: (exemplar) => {
         var option = "";
-        livros.forEach(item => {
-            option += `<option value="${item.id}">${item.nome}</option>`;
+        exemplar.forEach(item => {
+            option += `<option value="${item.id}">${item.livro.nome}</option>`;
         });
         return option;
     },
@@ -57,13 +60,17 @@
             })
             .then(dados => {
                 var table = "";
+                var dataEmp, dataPrevistaDevol;
+                
                 dados.forEach(item => {
+                    dataEmp = new Date(`${item.dataEmp}`).toLocaleDateString().substr(0, 10);
+                    dataPrevistaDevol = new Date(`${item.dataPrevistaDevol}`).toLocaleDateString().substr(0, 10);
                     table += `<tr>
                         <td>${item.id}</td>
                         <td>${item.leitor.cpf}</td>
-                        <td><select class="form-control">${indexEmprestimo.carregarLivros(item.exemplar.livro)}</select></td>
-                        <td>${item.dataEmp}</td>
-                        <td>${item.dataPrevistaDevol}</td>
+                        <td><select class="form-control">${indexEmprestimo.carregarLivros(item.exemplar)}</select></td>
+                        <td>${dataEmp}</td>
+                        <td>${dataPrevistaDevol}</td>
                         <td>${item.situacao}</td>
                         <td onclick='indexEmprestimo.devolver(${item.id})'>X</td>
                               </tr>`;

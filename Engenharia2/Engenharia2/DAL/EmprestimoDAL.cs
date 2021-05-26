@@ -205,22 +205,20 @@ namespace Engenharia2.DAL
         {
             List<Reserva> reservas = new List<Reserva>();
             string sql = "";
-            if (cpf == "")
+            if (cpf == null || cpf == "")
             {
-                sql = "SELECT emprestimo.idEmprestimo, emprestimo.DataEmp, emprestimo.Pagamento_idPagamento, leitor.idLeitor, emprestimo.DataPrevistaDevol, emprestimo.Situacao, emprestimo.DataDevolucao, exemplar.idExemplar " +
+                sql = "SELECT emprestimo.idEmprestimo, emprestimo.DataEmp, leitor.idLeitor, emprestimo.DataPrevistaDevol, emprestimo.Situacao, emprestimo.DataDevolucao, exemplar.idExemplar " +
                          "FROM emprestimo_has_exemplar " +
                          "INNER JOIN emprestimo " +
                          "ON emprestimo_has_exemplar.Emprestimo_idEmprestimo = emprestimo.idEmprestimo " +
                          "INNER JOIN leitor " +
                          "ON emprestimo.Leitor_idLeitor = leitor.idLeitor " +
                          "INNER JOIN exemplar " +
-                         "ON exemplar.idExemplar = emprestimo_has_exemplar.Exemplar_idExemplar " +
-                         "INNER JOIN pagamento " +
-                         "ON pagamento.idPagamento = emprestimo.Pagamento_idPagamento";
+                         "ON exemplar.idExemplar = emprestimo_has_exemplar.Exemplar_idExemplar ";
             }
             else
             {
-                sql = "SELECT emprestimo.idEmprestimo, emprestimo.DataEmp, emprestimo.Pagamento_idPagamento, leitor.idLeitor, emprestimo.DataPrevistaDevol, emprestimo.Situacao, emprestimo.DataDevolucao, exemplar.idExemplar " +
+                sql = "SELECT emprestimo.idEmprestimo, emprestimo.DataEmp, leitor.idLeitor, emprestimo.DataPrevistaDevol, emprestimo.Situacao, emprestimo.DataDevolucao, exemplar.idExemplar " +
                          "FROM emprestimo_has_exemplar " +
                          "INNER JOIN emprestimo " +
                          "ON emprestimo_has_exemplar.Emprestimo_idEmprestimo = emprestimo.idEmprestimo " +
@@ -228,8 +226,7 @@ namespace Engenharia2.DAL
                          "ON emprestimo.Leitor_idLeitor = leitor.idLeitor " +
                          "INNER JOIN exemplar " +
                          "ON exemplar.idExemplar = emprestimo_has_exemplar.Exemplar_idExemplar " +
-                         "INNER JOIN pagamento " +
-                         "ON pagamento.idPagamento = emprestimo.Pagamento_idPagamento WHERE leitor.CPF = "+ cpf;
+                         "WHERE leitor.CPF = "+ cpf;
             }
 
             
@@ -250,7 +247,7 @@ namespace Engenharia2.DAL
                         {
                             if (l.Id == Convert.ToInt32(row[0]))
                             {
-                                l.Exemplar.Add(new ExemplarDAL().BuscaExemplar(Convert.ToInt32(row[7])));
+                                l.Exemplar.Add(new ExemplarDAL().BuscaExemplar(Convert.ToInt32(row[6])));
                             }
                         }
                     }
@@ -260,14 +257,14 @@ namespace Engenharia2.DAL
                         emprestimo = new Emprestimo();
                         emprestimo.Id = Convert.ToInt32(row[0]);
                         emprestimo.DataEmp = Convert.ToDateTime(row[1]);
-                        emprestimo.Pagamento = new PagamentoDAL().BuscaPagamentoPorId(Convert.ToInt32(row[2]));
-                        emprestimo.Leitor = new LeitorDAL().BuscaLeitorPorId(Convert.ToInt32(row[3]));
-                        emprestimo.DataPrevistaDevol = Convert.ToDateTime(row[4]);
+                        emprestimo.Pagamento = null;
+                        emprestimo.Leitor = new LeitorDAL().BuscaLeitorPorId(Convert.ToInt32(row[2]));
+                        emprestimo.DataPrevistaDevol = Convert.ToDateTime(row[3]);
                         emprestimo.Atendente = new AtendenteDAL().obterAtendentePorNome("Maria Luiza") ;
-                        emprestimo.Situacao = row[5].ToString();
-                        emprestimo.DataDevolucao = Convert.ToDateTime(row[6]);
+                        emprestimo.Situacao = row[4].ToString();
+                        emprestimo.DataDevolucao = Convert.ToDateTime(row[5]);
                         
-                        exemplaresId.Add(Convert.ToInt32(row[7]));
+                        exemplaresId.Add(Convert.ToInt32(row[6]));
                         emprestimo.Exemplar = new ExemplarDAL().obterExemplaresPorListID(exemplaresId);
                         emprestimos.Add(emprestimo);
                     }

@@ -52,7 +52,7 @@
                 <div class="row">
                     <h2 class="m-1">Lista de Emprestimos</h2>
                     <p class="col-sm-5"></p>
-                    <input type="text" class="form-control col-sm-2 m-1" id="pesquisaLeitor" placeholder="Digite o CPF do Leitor(a)" value="" />
+                    <input type="text" class="form-control col-sm-2 m-1" id="pesquisaLeitor" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" placeholder="Digite o CPF do Leitor(a)" value="" />
                     <input type="button" class="form-control col-1 btn-dark m-1" value="Pesquisar" onclick="indexEmprestimo.pesquisar()" />
                     <input type="button" class="form-control col-1 btn-default m-1" value="Listar Todos" onclick="indexEmprestimo.carregar()" />
                 </div>
