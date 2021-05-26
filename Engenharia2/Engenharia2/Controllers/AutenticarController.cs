@@ -20,10 +20,16 @@ namespace Engenharia2.Controllers
             string email = dados.GetProperty("email").ToString();
             string senha = dados.GetProperty("senha").ToString();
             Administrador adm = new Administrador().Autenticar(email, senha);
-            string msg = "Usuario nao encontrado.";
+            string msg = "Erro";
             if (adm != null)
             {
-                msg = "Administrador Logado com Sucesso!";
+                msg = "Administrador";
+            }else{
+                Atendente at = new Atendente().Autenticar(email, senha);
+                if(at != null)
+                {
+                    msg = "Atendente";
+                }
             }
             return Json(new
             {
