@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Engenharia2.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,10 +49,12 @@ namespace Engenharia2.Models
         public string Cpf { get => cpf; set => cpf = value; }
         public string Senha { get => senha; set => senha = value; }
         public string Email { get => email; set => email = value; }
-    }
-    
-    public Atendente Autenticar(string email,string senha)
+
+        public Atendente Autenticar(string email, string senha)
         {
             return new AtendenteDAL().Autenticar(email, senha);
         }
+    }
+    
+   
 }

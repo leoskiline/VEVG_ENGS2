@@ -58,7 +58,7 @@ namespace Engenharia2.DAL
             Atendente at = null;
             if(dt.Rows.Count>0)
             {
-                at = new Administrador()
+                at = new Atendente()
                 {
                     Id = Convert.ToInt32(dt.Rows[0]["idAtendente"]),
                     Nome = dt.Rows[0]["Nome"].ToString(),
