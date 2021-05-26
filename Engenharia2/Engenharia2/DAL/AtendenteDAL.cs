@@ -48,5 +48,29 @@ namespace Engenharia2.DAL
             return atendente;
 
         }
+        
+        public Atendente Autenticar(string email,string senha)
+        {
+            string sql = "SELECT * FROM atendente WHERE email='" + email + "' AND senha='" + senha + "'";
+            _bd.AbrirConexao();
+            DataTable dt = _bd.ExecutarSelect(sql);
+            _bd.FecharConexao();
+            Atendente at = null;
+            if(dt.Rows.Count>0)
+            {
+                at = new Administrador()
+                {
+                    Id = Convert.ToInt32(dt.Rows[0]["idAtendente"]),
+                    Nome = dt.Rows[0]["Nome"].ToString(),
+                    Cpf = dt.Rows[0]["CPF"].ToString(),
+                    Endereco = dt.Rows[0]["Endereco"].ToString(),
+                    Telefone = dt.Rows[0]["Telefone"].ToString(),
+                    Status = dt.Rows[0]["Status"].ToString(),
+                    Senha = dt.Rows[0]["Senha"].ToString(),
+                    Email = dt.Rows[0]["Email"].ToString()
+                };
+            }
+            return at;
+        }
     }
 }
