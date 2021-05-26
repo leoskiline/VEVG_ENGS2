@@ -81,6 +81,37 @@ namespace Engenharia2.DAL
                 msg = "Exemplar alterado com Sucesso!";
             }
             return msg;
+        
+        }
+
+        public List<Exemplar> obterExemplaresPorListLivrosID(List<Livro> livros)
+        {
+            List<Exemplar> exemplares = new List<Exemplar>();
+            int cont = livros.Count;
+            DataTable[] dt = new DataTable[cont];
+            _bd.AbrirConexao();
+            string sql;
+            Exemplar exemplar= null;
+            for (int i = 0; i < cont; i++)
+            {
+                sql = "SELECT * FROM exemplar WHERE Livro_idLivro = @idLivro";
+                _bd.LimparParametros();
+                _bd.AdicionarParametro("@idLivro", livros[i].Id.ToString());
+                dt[i] = _bd.ExecutarSelect(sql);
+                if (dt[i].Rows.Count > 0)
+                {
+                    exemplar = new Exemplar()
+                    {
+                        Id = Convert.ToInt32(dt[i].Rows[0]["idExemplar"]),
+                        Livro = new LivroDAL().seleciona(Convert.ToInt32(dt[i].Rows[0]["Livro_idLivro"])),
+                        Posicao = new PosicaoDAL().obterPorID(Convert.ToInt32(dt[i].Rows[0]["Posicao_idPosicao"]))
+                    };
+                    exemplares.Add(exemplar);
+                }
+            }
+            _bd.FecharConexao();
+            return exemplares;
+
         }
 
         public List<Exemplar> BuscaExemplaresNome(string nome)
@@ -100,6 +131,35 @@ namespace Engenharia2.DAL
                 };
                 exemplares.Add(exemplar);
             }
+            return exemplares;
+        }
+
+        public List<Exemplar> obterExemplaresPorListID(List<int> id)
+        {
+            List<Exemplar> exemplares = new List<Exemplar>();
+            int cont = id.Count;
+            DataTable[] dt = new DataTable[cont];
+            _bd.AbrirConexao();
+            string sql;
+            Exemplar exemplar = null;
+            for (int i = 0; i < cont; i++)
+            {
+                sql = "SELECT * FROM exemplar WHERE idExemplar = @idExemplar";
+                _bd.LimparParametros();
+                _bd.AdicionarParametro("@idExemplar", id[i].ToString());
+                dt[i] = _bd.ExecutarSelect(sql);
+                if (dt[i].Rows.Count > 0)
+                {
+                    exemplar = new Exemplar()
+                    {
+                        Id = Convert.ToInt32(dt[i].Rows[0]["idExemplar"]),
+                        Livro = new LivroDAL().seleciona(Convert.ToInt32(dt[i].Rows[0]["Livro_idLivro"])),
+                        Posicao = new PosicaoDAL().obterPorID(Convert.ToInt32(dt[i].Rows[0]["Posicao_idPosicao"]))
+                    };
+                    exemplares.Add(exemplar);
+                }
+            }
+            _bd.FecharConexao();
             return exemplares;
         }
 

@@ -65,7 +65,7 @@ namespace Engenharia2.Models
             if (msg2 == "Reserva Gravada com Sucesso!")
                 return msg;
             else
-                return msg;
+                return msg2;
         }
 
         public List<Reserva> BuscarReservaPorCPFEStatus(string cpf, string status)

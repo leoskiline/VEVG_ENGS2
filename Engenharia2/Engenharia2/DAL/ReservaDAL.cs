@@ -62,7 +62,37 @@ namespace Engenharia2.DAL
             return msg;
 
         }
-        
+
+        public string finaliza(int idLeitor, int idLivro)
+        {
+            string msg = "Falha ao Finalizar a Reserva";
+            string sql = "UPDATE reserva SET Status=@finalizar WHERE Status='Em Aberto' AND Leitor_idLeitor =" + idLeitor + " AND Livro_idLivro=" + idLivro;
+            _bd.LimparParametros();
+            _bd.AdicionarParametro("@finalizar", "Finalizado");
+
+            _bd.AbrirConexao();
+            int rows = _bd.ExecutarNonQuery(sql);
+            _bd.FecharConexao();
+            if (rows > 0)
+            {
+                msg = "Reserva finalizada com Sucesso!";
+            }
+            return msg;
+
+        }
+
+        public int qtdReservada(int livroId)
+        {
+            string sql = "SELECT * FROM reserva WHERE Status='Em Aberto' AND Livro_idLivro = @livroid";
+            _bd.LimparParametros();
+            _bd.AdicionarParametro("@livroid", Convert.ToString(livroId));
+
+            _bd.AbrirConexao();
+            DataTable dt = _bd.ExecutarSelect(sql);
+            _bd.FecharConexao();
+            return dt.Rows.Count;
+        }
+
         public bool isReservado(int leitorid, int livroid)
         {
             string sql = "SELECT * FROM reserva WHERE Leitor_idLeitor = @leitorid AND Livro_idLivro = @livroid";

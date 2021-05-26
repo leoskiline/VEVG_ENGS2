@@ -82,7 +82,6 @@
                     select.options[i].removeAttribute("selected", "selected");
             }
         });
-        debugger
         autor.forEach(item => {
             for (let i = 0; i < select.options.length; i++) {
                 if (select.options[i].value == item.id)

@@ -63,6 +63,17 @@ namespace Engenharia2.DAL
             return msg;
         }
 
+        public void menosUm(Livro l)
+        {
+            string sql = "UPDATE livro SET qtd= @qtd WHERE idLivro='" + l.Id + "';";
+
+            _bd.LimparParametros();
+            _bd.AdicionarParametro("@qtd", Convert.ToString(l.Qtd-1));
+            _bd.AbrirConexao();
+            int rows = _bd.ExecutarNonQuery(sql);
+            _bd.FecharConexao();
+        }
+
         public string alterar(Livro livro)
         {
             return "Falha ao Alterar";
@@ -88,6 +99,58 @@ namespace Engenharia2.DAL
                 };
                 livros.Add(livro);
             }
+            return livros;
+        }
+
+        public List<Livro> obterLivrosPorListID(List<int> id)
+        {
+            List<Livro> livros= new List<Livro>();
+            int cont = id.Count;
+            DataTable[] dt = new DataTable[cont];
+            _bd.AbrirConexao();
+            string sql;
+            Livro livro = null;
+            for (int i = 0; i < cont; i++)
+            {
+                sql = "SELECT livro.idLivro,livro.Nome,livro.qtd,livro.Editora_idEditora,livro.Administrador_idAdministrador,autor.idAutor FROM livro " +
+                      "INNER JOIN editora ON editora.idEditora = livro.Editora_idEditora " +
+                      "INNER JOIN livro_has_autor ON livro_has_autor.Livro_idLivro = livro.idLivro " +
+                      "INNER JOIN autor ON livro_has_autor.Autor_idAutor = autor.idAutor " +
+                      "where livro.idLivro =" + id[i];
+                _bd.LimparParametros();
+                _bd.AdicionarParametro("@idLivro", id[i].ToString());
+                dt[i] = _bd.ExecutarSelect(sql);
+                if (dt[i].Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt[i].Rows)
+                    {
+                        if (livros.Exists(l => l.Id == Convert.ToInt32(row[0])))
+                        {
+                            foreach (Livro l in livros)
+                            {
+                                if (l.Id == Convert.ToInt32(row[0]))
+                                {
+                                    l.Autor.Add(new AutorDAL().BuscaAutorPorId(Convert.ToInt32(row[5])));
+                                }
+                            }
+                        }
+                        else
+                        {
+                            List<int> autoresId = new List<int>();
+                            livro = new Livro();
+                            livro.Id = Convert.ToInt32(row[0]);
+                            livro.Nome = row[1].ToString();
+                            livro.Qtd = Convert.ToInt32(row[2]);
+                            livro.Editora = new EditoraDAL().BuscaEditoraPorId(Convert.ToInt32(row[3]));
+                            livro.Administrador = new AdministradorDAL().obter("Leonardo Custodio dos Santos");
+                            autoresId.Add(Convert.ToInt32(row[5]));
+                            livro.Autor = new AutorDAL().obterAutoresPorListID(autoresId);
+                            livros.Add(livro);
+                        }
+                    }
+                }
+            }
+            _bd.FecharConexao();
             return livros;
         }
 
