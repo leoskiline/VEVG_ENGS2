@@ -26,6 +26,30 @@ namespace Engenharia2.DAL
             return id;
         }
 
+        public Administrador Autenticar(string email,string senha)
+        {
+            string sql = "SELECT * FROM administrador WHERE email='" + email + "' AND senha='" + senha + "'";
+            _bd.AbrirConexao();
+            DataTable dt = _bd.ExecutarSelect(sql);
+            _bd.FecharConexao();
+            Administrador adm = null;
+            if(dt.Rows.Count>0)
+            {
+                adm = new Administrador()
+                {
+                    Id = Convert.ToInt32(dt.Rows[0]["idAdministrador"]),
+                    Nome = dt.Rows[0]["Nome"].ToString(),
+                    Cpf = dt.Rows[0]["CPF"].ToString(),
+                    Endereco = dt.Rows[0]["Endereco"].ToString(),
+                    Telefone = dt.Rows[0]["Telefone"].ToString(),
+                    Status = dt.Rows[0]["Status"].ToString(),
+                    Senha = dt.Rows[0]["Senha"].ToString(),
+                    Email = dt.Rows[0]["Email"].ToString()
+                };
+            }
+            return adm;
+        }
+
         public Administrador obter(string nome)
         {
             Administrador adm = null;            
