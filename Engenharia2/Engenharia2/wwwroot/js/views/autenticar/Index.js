@@ -10,16 +10,18 @@
                 .then(result => {
                     return result.json();
                 }).then(dados => {
-                    if (dados.msg == "Administrador Logado com Sucesso!") {
-                        document.getElementById("msgAut").innerHTML = `<span class="text-success">Administrador Autenticado com Sucesso!</span>`;
+                    if (dados.msg != "Erro") {
+                        document.getElementById("msgAut").innerHTML = `<span class="text-success">Autenticado com Sucesso!</span>`;
+                        localStorage.setItem("role", dados.msg);
                         setTimeout(function () {
                             window.location.href = "/Home";
                         }, 2000);
                     }
-                    else if (dados.msg == "Usuario nao encontrado.") {
+                    else {
                         document.getElementById("msgAut").innerHTML = `<span style="color:red">Usuario nao possui cadastro no sistema.</span>`;
                     }
                 }).catch(() => {
+                    localStorage.clear();
                     console.log("Falha ao Autenticar");
                 });
         }
