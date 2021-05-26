@@ -84,8 +84,7 @@ namespace Engenharia2.DAL
                          "ON emprestimo.Leitor_idLeitor = leitor.idLeitor " +
                          "INNER JOIN exemplar " +
                          "ON exemplar.idExemplar = emprestimo_has_exemplar.Exemplar_idExemplar " +
-                         "INNER JOIN pagamento " +
-                         "ON pagamento.idPagamento = emprestimo.Pagamento_idPagamento WHERE emprestimo.idEmprestimo = " + id;
+                         "WHERE emprestimo.idEmprestimo = " + id;
             _bd.AbrirConexao();
             DataTable dt = _bd.ExecutarSelect(sql);
             _bd.FecharConexao();
@@ -113,7 +112,6 @@ namespace Engenharia2.DAL
                         emprestimo = new Emprestimo();
                         emprestimo.Id = Convert.ToInt32(row[0]);
                         emprestimo.DataEmp = Convert.ToDateTime(row[1]);
-                        emprestimo.Pagamento = new PagamentoDAL().BuscaPagamentoPorId(Convert.ToInt32(row[2]));
                         emprestimo.Leitor = new LeitorDAL().BuscaLeitorPorId(Convert.ToInt32(row[3]));
                         emprestimo.DataPrevistaDevol = Convert.ToDateTime(row[4]);
                         emprestimo.Atendente = new AtendenteDAL().obterAtendentePorNome("Maria Luiza");
@@ -133,10 +131,12 @@ namespace Engenharia2.DAL
         {
             string msg = "Falha ao Devolver a Emprestimo";
             Emprestimo emprestimo = new EmprestimoDAL().BuscaEmprestimoPorId(id);
-            string sql = "UPDATE emprestimo SET Situacao=@devolver AND DataDevolucao=" + DateTime.Now + " WHERE idEmprestimo =" + id;
+            string sql = "UPDATE emprestimo SET Situacao=@devolver, DataDevolucao=@data WHERE idEmprestimo =" + id;
             string sql2 = "";
+            string devolver = "Finalizado";
             _bd.LimparParametros();
-            _bd.AdicionarParametro("@devolver", "Finalizado");
+            _bd.AdicionarParametro("@devolver", devolver);
+            _bd.AdicionarParametro("@data", DateTime.UtcNow.ToString("yyyy-MM-dd"));
 
             _bd.AbrirConexao();
             int rows = _bd.ExecutarNonQuery(sql);
@@ -149,20 +149,23 @@ namespace Engenharia2.DAL
                     foreach (Exemplar e in emprestimo.Exemplar)
                     {
                         int qtd = e.Livro.Qtd + 1;
-                        sql = "UPDATE livro SET qtd=" + qtd + " WHERE idLivro=" + e.Livro.Id;
+                        sql2 = "UPDATE livro SET qtd=@qtd WHERE idLivro=@idLivro";
+                        _bd.LimparParametros();
+                        _bd.AdicionarParametro("@qtd", Convert.ToString(qtd));
+                        _bd.AdicionarParametro("@idLivro", Convert.ToString(e.Livro.Id));
                         rows2 += _bd.ExecutarNonQuery(sql2);
                     }
                 }
             }
 
-            if (emprestimo.Situacao == "Finalizado" && rows2 > 0)
+            if (rows2 > 0)
             {
                 msg = "Emprestimo Devolvido com Sucesso!";
             }
 
-            if (emprestimo.DataPrevistaDevol < DateTime.Now.Date)
+            if (emprestimo.DataPrevistaDevol < DateTime.UtcNow)
             {//Entregou antes do prazo está OK
-                Pagamento pagamento = new Pagamento(DateTime.Now.Date, 20.0, 20.0);
+                Pagamento pagamento = new Pagamento(DateTime.UtcNow, 20.0, 20.0);
                 int idPagamento;
                 (msg, idPagamento) = pagamento.gravar(pagamento);
                 if (msg == "Pagamento Gravado com Sucesso!")
@@ -226,7 +229,9 @@ namespace Engenharia2.DAL
                          "ON emprestimo.Leitor_idLeitor = leitor.idLeitor " +
                          "INNER JOIN exemplar " +
                          "ON exemplar.idExemplar = emprestimo_has_exemplar.Exemplar_idExemplar " +
-                         "WHERE leitor.CPF = "+ cpf;
+                         "WHERE leitor.CPF = @cpf";
+                _bd.LimparParametros();
+                _bd.AdicionarParametro("@cpf", Convert.ToString(cpf));
             }
 
             

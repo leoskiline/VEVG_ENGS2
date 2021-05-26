@@ -74,6 +74,17 @@ namespace Engenharia2.DAL
             _bd.FecharConexao();
         }
 
+        public void maisUm(Livro l)
+        {
+            string sql = "UPDATE livro SET qtd= @qtd WHERE idLivro='" + l.Id + "';";
+
+            _bd.LimparParametros();
+            _bd.AdicionarParametro("@qtd", Convert.ToString(l.Qtd + 1));
+            _bd.AbrirConexao();
+            int rows = _bd.ExecutarNonQuery(sql);
+            _bd.FecharConexao();
+        }
+
         public string alterar(Livro livro)
         {
             return "Falha ao Alterar";
