@@ -1,5 +1,6 @@
 ﻿using Engenharia2.DAL;
 using Engenharia2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Engenharia2.Controllers
 {
+    [Authorize("Autorizacao")]
     public class AutorController : Controller
     {
         public IActionResult Index()

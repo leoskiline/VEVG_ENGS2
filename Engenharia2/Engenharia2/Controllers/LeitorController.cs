@@ -1,5 +1,6 @@
 ﻿using Engenharia2.DAL;
 using Engenharia2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace Engenharia2.Controllers
 {
     public class LeitorController : Controller
     {
+        [Authorize("Autorizacao")]
         public IActionResult Index()
         {
             return View();

@@ -4,7 +4,6 @@
             email: document.getElementById("email").value,
             senha: document.getElementById("senha").value
         };
-        debugger
         if (entrada.email.length > 0 && entrada.email.indexOf("@") !== -1 && entrada.email.indexOf(".") !== -1 && entrada.senha.length > 0) {
             HTTPClient.post("/Autenticar/Entrar", entrada)
                 .then(result => {
