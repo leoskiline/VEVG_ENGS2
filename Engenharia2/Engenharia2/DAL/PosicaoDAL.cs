@@ -15,7 +15,6 @@ namespace Engenharia2.DAL
         {
             Posicao pos;
             string sql = "INSERT INTO posicao (Setor,Prateleira) VALUES (@setor,@prateleira);Select @@IDENTITY;";
-            _bd.AbrirConexao();
             _bd.LimparParametros();
             _bd.AdicionarParametro("@setor", setor);
             _bd.AdicionarParametro("@prateleira", prateleira);
@@ -25,6 +24,7 @@ namespace Engenharia2.DAL
             }
             else
             {
+                _bd.AbrirConexao();
                 int id = _bd.ExecutarNonQueryAndGetID(sql);
                 pos = obterPorID(id);
             }

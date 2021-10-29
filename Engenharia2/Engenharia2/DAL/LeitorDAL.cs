@@ -18,7 +18,7 @@ namespace Engenharia2.DAL
             _bd.AdicionarParametro("@nome", leitor.Nome);
             _bd.AdicionarParametro("@cpf", leitor.Cpf);
             _bd.AdicionarParametro("@endereco", leitor.Endereco);
-            _bd.AdicionarParametro("@dataNasc", Convert.ToString(leitor.DataNasc));
+            _bd.AdicionarParametro("@dataNasc", leitor.DataNasc.ToString("yyyy-MM-dd HH:mm:ss"));
             AtendenteDAL atDal = new AtendenteDAL();
             _bd.AdicionarParametro("@atendenteId", atDal.obterIdPorNome("Maria Luiza").ToString());
             _bd.AbrirConexao();

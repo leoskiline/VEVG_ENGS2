@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tY++gyzMvShYks9whFO21tBqcui0+fWyGtGwUwNCQUO6qZMO84MZ4oXoPbW2CL5ZmazcjGEB/yA2paTqU8uuxw==",
+  "dgSpecHash": "ZXC1DPc7HNbyh9lkBbWEwU0luVEMRgGntnIk6HI6pabNQg7XSLauqWOlkr56fx7DefLJIIpbgo1NCaW3SJK2Qw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Leonardo\\source\\repos\\leoskiline\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\Engenharia2.csproj",
+  "projectFilePath": "C:\\Users\\Leonardo\\Source\\Repos\\leoskiline\\VEVG_ENGS2\\Engenharia2\\Engenharia2\\Engenharia2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Leonardo\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Leonardo\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",

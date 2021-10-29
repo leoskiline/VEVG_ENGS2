@@ -116,7 +116,7 @@ namespace Engenharia2.DAL
 
         public List<Exemplar> BuscaExemplaresNome(string nome)
         {
-            string sql = "SELECT idPosicao,idExemplar,idLivro FROM exemplar INNER JOIN livro ON livro.idLivro = exemplar.idLivro where livro.Nome like '%"+nome+"%'";
+            string sql = "SELECT idPosicao,idExemplar,exemplar.idLivro FROM exemplar INNER JOIN livro ON livro.idLivro = exemplar.idLivro where livro.Nome like '%"+nome+"%'";
             _bd.AbrirConexao();
             DataTable dt = _bd.ExecutarSelect(sql);
             _bd.FecharConexao();

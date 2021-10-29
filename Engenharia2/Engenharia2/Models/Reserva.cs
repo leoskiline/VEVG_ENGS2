@@ -43,6 +43,8 @@ namespace Engenharia2.Models
             ReservaDAL reservadal = new ReservaDAL();
             Livro livro = new LivroDAL().seleciona(Convert.ToInt32(dados.GetProperty("livro").ToString()));
             Leitor leitor = new LeitorDAL().BuscaLeitorPorCPF(dados.GetProperty("cpf").ToString());
+            if (dados.GetProperty("cpf").ToString() == "")
+                return "Campo de CPF Vazio...";
             bool reservado = reservadal.isReservado(leitor.Id, livro.Id);
 
             if (livro.Qtd > 0 && !reservado)
@@ -63,9 +65,9 @@ namespace Engenharia2.Models
             }
 
             if (msg2 == "Reserva Gravada com Sucesso!")
-                return msg;
-            else
                 return msg2;
+            else
+                return msg;
         }
 
         public List<Reserva> BuscarReservaPorCPFEStatus(string cpf, string status)
