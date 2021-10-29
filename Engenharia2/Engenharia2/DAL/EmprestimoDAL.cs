@@ -17,7 +17,7 @@ namespace Engenharia2.DAL
             Emprestimo emprestimo = null;
             ReservaDAL reservadal = new ReservaDAL();
             int idLeitor = new LeitorDAL().BuscaLeitorPorCPF(cpf).Id;
-            string sql = "INSERT INTO emprestimo (DataEmp, Leitor_idLeitor, DataPrevistaDevol, Atendente_idAtendente, Situacao, DataDevolucao) VALUES (@dataEmp, @leitor_idLeitor, @dataPrevistaDevol, @atendente_idAtendente, @situacao, @dataDevolucao);Select @@IDENTITY;";
+            string sql = "INSERT INTO emprestimo (DataEmp, idLeitor, DataPrevistaDevol, idAtendente, Situacao, DataDevolucao) VALUES (@dataEmp, @leitor_idLeitor, @dataPrevistaDevol, @atendente_idAtendente, @situacao, @dataDevolucao);Select @@IDENTITY;";
 
             _bd.LimparParametros();
             _bd.AdicionarParametro("@dataEmp", DateTime.UtcNow.ToString("yyyy-MM-dd"));
@@ -45,7 +45,7 @@ namespace Engenharia2.DAL
                 }
                 _bd.AbrirConexao();
                 int id = _bd.ExecutarNonQueryAndGetID(sql);
-                string sql2 = "INSERT INTO emprestimo_has_exemplar (Emprestimo_idEmprestimo,Exemplar_idExemplar) VALUES (@idEmprestimo,@idExemplar)";
+                string sql2 = "INSERT INTO emprestimo_has_exemplar (idEmprestimo,idExemplar) VALUES (@idEmprestimo,@idExemplar)";
                 int rows2 = 0;
                 List<Exemplar> exemplar = new ExemplarDAL().obterExemplaresPorListLivrosID(livros);
                 for (int i = 0; i < exemplar.Count; i++)
@@ -76,14 +76,14 @@ namespace Engenharia2.DAL
 
         public Emprestimo BuscaEmprestimoPorId(int id)
         {
-            string sql = "SELECT emprestimo.idEmprestimo, emprestimo.DataEmp, emprestimo.Pagamento_idPagamento, leitor.idLeitor, emprestimo.DataPrevistaDevol, emprestimo.Situacao, emprestimo.DataDevolucao, exemplar.idExemplar " +
+            string sql = "SELECT emprestimo.idEmprestimo, emprestimo.DataEmp, emprestimo.idPagamento, leitor.idLeitor, emprestimo.DataPrevistaDevol, emprestimo.Situacao, emprestimo.DataDevolucao, exemplar.idExemplar " +
                          "FROM emprestimo_has_exemplar " +
                          "INNER JOIN emprestimo " +
                          "ON emprestimo_has_exemplar.Emprestimo_idEmprestimo = emprestimo.idEmprestimo " +
                          "INNER JOIN leitor " +
-                         "ON emprestimo.Leitor_idLeitor = leitor.idLeitor " +
+                         "ON emprestimo.idLeitor = leitor.idLeitor " +
                          "INNER JOIN exemplar " +
-                         "ON exemplar.idExemplar = emprestimo_has_exemplar.Exemplar_idExemplar " +
+                         "ON exemplar.idExemplar = emprestimo_has_exemplar.idExemplar " +
                          "WHERE emprestimo.idEmprestimo = " + id;
             _bd.AbrirConexao();
             DataTable dt = _bd.ExecutarSelect(sql);
@@ -170,7 +170,7 @@ namespace Engenharia2.DAL
                 (msg, idPagamento) = pagamento.gravar(pagamento);
                 if (msg == "Pagamento Gravado com Sucesso!")
                 {
-                    string sql3 = "UPDATE emprestimo SET Pagamento_idPagamento="+idPagamento+" WHERE idEmprestimo =" + id;
+                    string sql3 = "UPDATE emprestimo SET idPagamento="+idPagamento+" WHERE idEmprestimo =" + id;
                     int rows3 = _bd.ExecutarNonQuery(sql3);
                     if(rows3 > 0)
                     {
@@ -188,7 +188,7 @@ namespace Engenharia2.DAL
         
         public bool isReservado(int leitorid, int livroid)
         {
-            string sql = "SELECT * FROM reserva WHERE Leitor_idLeitor = @leitorid AND Livro_idLivro = @livroid";
+            string sql = "SELECT * FROM reserva WHERE idLeitor = @leitorid AND idLivro = @livroid";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@leitorid", Convert.ToString(leitorid));
             _bd.AdicionarParametro("@livroid", Convert.ToString(livroid));
@@ -213,22 +213,22 @@ namespace Engenharia2.DAL
                 sql = "SELECT emprestimo.idEmprestimo, emprestimo.DataEmp, leitor.idLeitor, emprestimo.DataPrevistaDevol, emprestimo.Situacao, emprestimo.DataDevolucao, exemplar.idExemplar " +
                          "FROM emprestimo_has_exemplar " +
                          "INNER JOIN emprestimo " +
-                         "ON emprestimo_has_exemplar.Emprestimo_idEmprestimo = emprestimo.idEmprestimo " +
+                         "ON emprestimo_has_exemplar.idEmprestimo = emprestimo.idEmprestimo " +
                          "INNER JOIN leitor " +
-                         "ON emprestimo.Leitor_idLeitor = leitor.idLeitor " +
+                         "ON emprestimo.idLeitor = leitor.idLeitor " +
                          "INNER JOIN exemplar " +
-                         "ON exemplar.idExemplar = emprestimo_has_exemplar.Exemplar_idExemplar ";
+                         "ON exemplar.idExemplar = emprestimo_has_exemplar.idExemplar ";
             }
             else
             {
                 sql = "SELECT emprestimo.idEmprestimo, emprestimo.DataEmp, leitor.idLeitor, emprestimo.DataPrevistaDevol, emprestimo.Situacao, emprestimo.DataDevolucao, exemplar.idExemplar " +
                          "FROM emprestimo_has_exemplar " +
                          "INNER JOIN emprestimo " +
-                         "ON emprestimo_has_exemplar.Emprestimo_idEmprestimo = emprestimo.idEmprestimo " +
+                         "ON emprestimo_has_exemplar.idEmprestimo = emprestimo.idEmprestimo " +
                          "INNER JOIN leitor " +
-                         "ON emprestimo.Leitor_idLeitor = leitor.idLeitor " +
+                         "ON emprestimo.idLeitor = leitor.idLeitor " +
                          "INNER JOIN exemplar " +
-                         "ON exemplar.idExemplar = emprestimo_has_exemplar.Exemplar_idExemplar " +
+                         "ON exemplar.idExemplar = emprestimo_has_exemplar.idExemplar " +
                          "WHERE leitor.CPF = @cpf";
                 _bd.LimparParametros();
                 _bd.AdicionarParametro("@cpf", Convert.ToString(cpf));

@@ -15,7 +15,7 @@ namespace Engenharia2.DAL
         public string gravar(Livro livro)
         {
             string msg = "Falha ao Gravar Livro";
-            string sql = "INSERT INTO livro (Nome,Editora_idEditora,Administrador_idAdministrador,qtd) VALUES (@nome,@editoraId,@administradorId,@qtd);Select @@IDENTITY;";
+            string sql = "INSERT INTO livro (Nome,idEditora,idAdministrador,qtd) VALUES (@nome,@editoraId,@administradorId,@qtd);Select @@IDENTITY;";
             
             _bd.LimparParametros();
             _bd.AdicionarParametro("@nome", livro.Nome);
@@ -24,7 +24,7 @@ namespace Engenharia2.DAL
             _bd.AdicionarParametro("@qtd", livro.Qtd.ToString());
             _bd.AbrirConexao();
             livro.Id = _bd.ExecutarNonQueryAndGetID(sql);
-            string sql2 = "INSERT INTO livro_has_autor (Livro_idLivro,Autor_idAutor) VALUES (@livroId,@autorId)";
+            string sql2 = "INSERT INTO livro_has_autor (idLivro,idAutor) VALUES (@livroId,@autorId)";
             int rows2 = 0;
             for(int i = 0; i < livro.Autor.Count; i++)
             {
@@ -45,7 +45,7 @@ namespace Engenharia2.DAL
         {
             string msg = "Falha ao deletar Livro!";
             string sql = "DELETE FROM livro_has_autor WHERE Livro_idLivro=@idLivro";
-            string sql2 = "DELETE FROM exemplar WHERE Livro_idLivro=@idLivro";
+            string sql2 = "DELETE FROM exemplar WHERE idLivro=@idLivro";
             string sql3 = "DELETE FROM livro WHERE idLivro=@idLivro";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@idLivro", id.ToString());
@@ -105,7 +105,7 @@ namespace Engenharia2.DAL
                 {
                     Id = Convert.ToInt32(row["idLivro"]),
                     Nome = row["nome"].ToString(),
-                    Editora = edal.BuscaEditoraPorId(Convert.ToInt32(row["Editora_idEditora"])),
+                    Editora = edal.BuscaEditoraPorId(Convert.ToInt32(row["idEditora"])),
 
                 };
                 livros.Add(livro);
@@ -123,10 +123,10 @@ namespace Engenharia2.DAL
             Livro livro = null;
             for (int i = 0; i < cont; i++)
             {
-                sql = "SELECT livro.idLivro,livro.Nome,livro.qtd,livro.Editora_idEditora,livro.Administrador_idAdministrador,autor.idAutor FROM livro " +
-                      "INNER JOIN editora ON editora.idEditora = livro.Editora_idEditora " +
-                      "INNER JOIN livro_has_autor ON livro_has_autor.Livro_idLivro = livro.idLivro " +
-                      "INNER JOIN autor ON livro_has_autor.Autor_idAutor = autor.idAutor " +
+                sql = "SELECT livro.idLivro,livro.Nome,livro.qtd,livro.idEditora,livro.idAdministrador,autor.idAutor FROM livro " +
+                      "INNER JOIN editora ON editora.idEditora = livro.idEditora " +
+                      "INNER JOIN livro_has_autor ON livro_has_autor.idLivro = livro.idLivro " +
+                      "INNER JOIN autor ON livro_has_autor.idAutor = autor.idAutor " +
                       "where livro.idLivro =" + id[i];
                 _bd.LimparParametros();
                 _bd.AdicionarParametro("@idLivro", id[i].ToString());
@@ -170,18 +170,18 @@ namespace Engenharia2.DAL
             string sql = "";
             if (tipo == "nome")
             {
-                sql = "SELECT livro.idLivro,livro.Nome,livro.qtd,livro.Editora_idEditora,livro.Administrador_idAdministrador,autor.idAutor FROM livro " +
-                      "INNER JOIN editora ON editora.idEditora = livro.Editora_idEditora " +
-                      "INNER JOIN livro_has_autor ON livro_has_autor.Livro_idLivro = livro.idLivro " +
-                      "INNER JOIN autor ON livro_has_autor.Autor_idAutor = autor.idAutor " +
+                sql = "SELECT livro.idLivro,livro.Nome,livro.qtd,livro.idEditora,livro.idAdministrador,autor.idAutor FROM livro " +
+                      "INNER JOIN editora ON editora.idEditora = livro.idEditora " +
+                      "INNER JOIN livro_has_autor ON livro_has_autor.idLivro = livro.idLivro " +
+                      "INNER JOIN autor ON livro_has_autor.idAutor = autor.idAutor " +
                       "where livro.Nome LIKE '%"+termo+"%'";
             }
             else if(tipo == "editora")
             {
-                sql = "SELECT livro.idLivro,livro.Nome,livro.qtd,livro.Editora_idEditora,livro.Administrador_idAdministrador,autor.idAutor FROM livro " +
-                      "INNER JOIN editora ON editora.idEditora = livro.Editora_idEditora " +
-                      "INNER JOIN livro_has_autor ON livro_has_autor.Livro_idLivro = livro.idLivro " +
-                      "INNER JOIN autor ON livro_has_autor.Autor_idAutor = autor.idAutor " +
+                sql = "SELECT livro.idLivro,livro.Nome,livro.qtd,livro.idEditora,livro.idAdministrador,autor.idAutor FROM livro " +
+                      "INNER JOIN editora ON editora.idEditora = livro.idEditora " +
+                      "INNER JOIN livro_has_autor ON livro_has_autor.idLivro = livro.idLivro " +
+                      "INNER JOIN autor ON livro_has_autor.idAutor = autor.idAutor " +
                       "where editora.Nome LIKE '%"+termo+"%'";
             }
             _bd.AbrirConexao();
@@ -223,10 +223,10 @@ namespace Engenharia2.DAL
         
 
         public Livro seleciona(int id){
-            string sql = "SELECT livro.idLivro,livro.Nome,livro.qtd,livro.Editora_idEditora,livro.Administrador_idAdministrador,autor.idAutor FROM livro " +
-                       "INNER JOIN editora ON editora.idEditora = livro.Editora_idEditora " +
-                       "INNER JOIN livro_has_autor ON livro_has_autor.Livro_idLivro = livro.idLivro " +
-                       "INNER JOIN autor ON livro_has_autor.Autor_idAutor = autor.idAutor " +
+            string sql = "SELECT livro.idLivro,livro.Nome,livro.qtd,livro.idEditora,livro.idAdministrador,autor.idAutor FROM livro " +
+                       "INNER JOIN editora ON editora.idEditora = livro.idEditora " +
+                       "INNER JOIN livro_has_autor ON livro_has_autor.idLivro = livro.idLivro " +
+                       "INNER JOIN autor ON livro_has_autor.idAutor = autor.idAutor " +
                        "where livro.idLivro = @id";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@id", id.ToString());

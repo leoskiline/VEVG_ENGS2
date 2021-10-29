@@ -37,7 +37,7 @@ namespace Engenharia2.DAL
             string msg = "Falha ao Deletar Autor(a)";
             string sql = "DELETE FROM autor WHERE idAutor='" + id + "'";
 
-            string sqlAux = "SELECT * FROM livro_has_autor WHERE Autor_IdAutor='" + id + "'";
+            string sqlAux = "SELECT * FROM livro_has_autor WHERE idAutor='" + id + "'";
             
             _bd.AbrirConexao();
             DataTable dt = _bd.ExecutarSelect(sqlAux);

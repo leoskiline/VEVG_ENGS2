@@ -15,7 +15,7 @@ namespace Engenharia2.DAL
         public string gravar(Editora editora)
         {
             string msg = "Falha ao Gravar Editora";
-            string sql = "INSERT INTO editora (Nome,Descricao,Telefone,Administrador_idAdministrador) VALUES (@nome,@descricao,@telefone,@administradorId)";
+            string sql = "INSERT INTO editora (Nome,Descricao,Telefone,idAdministrador) VALUES (@nome,@descricao,@telefone,@administradorId)";
             _bd.AdicionarParametro("@nome", editora.Nome);
             _bd.AdicionarParametro("@descricao", editora.Descricao);
             _bd.AdicionarParametro("@telefone", editora.Telefone);

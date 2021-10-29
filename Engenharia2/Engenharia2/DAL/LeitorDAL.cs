@@ -14,7 +14,7 @@ namespace Engenharia2.DAL
         public string gravar(Leitor leitor)
         {
             string msg = "Falha ao Gravar Leitor";
-            string sql = "INSERT INTO leitor (nome,cpf,endereco,dataNasc,Atendente_idAtendente) VALUES (@nome,@cpf,@endereco,@dataNasc,@atendenteId)";
+            string sql = "INSERT INTO leitor (nome,cpf,endereco,dataNasc,idAtendente) VALUES (@nome,@cpf,@endereco,@dataNasc,@atendenteId)";
             _bd.AdicionarParametro("@nome", leitor.Nome);
             _bd.AdicionarParametro("@cpf", leitor.Cpf);
             _bd.AdicionarParametro("@endereco", leitor.Endereco);

@@ -14,7 +14,7 @@ namespace Engenharia2.DAL
         public string gravar(Exemplar ex)
         {
             string msg = "Falha ao Gravar Exemplar";
-            string sql = "insert into exemplar (Posicao_idPosicao,Livro_idLivro) VALUES (@posicaoId,@livroId)";
+            string sql = "insert into exemplar (idPosicao,idLivro) VALUES (@posicaoId,@livroId)";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@posicaoId", ex.Posicao.Id.ToString());
             _bd.AdicionarParametro("@livroId", ex.Livro.Id.ToString());
@@ -42,8 +42,8 @@ namespace Engenharia2.DAL
             {
                 exemplar = new Exemplar();
                 exemplar.Id = Convert.ToInt32(dt.Rows[0]["idExemplar"]);
-                exemplar.Posicao = new PosicaoDAL().obterPorID(Convert.ToInt32(dt.Rows[0]["Posicao_idPosicao"]));
-                exemplar.Livro = new LivroDAL().seleciona(Convert.ToInt32(dt.Rows[0]["Livro_idLivro"]));
+                exemplar.Posicao = new PosicaoDAL().obterPorID(Convert.ToInt32(dt.Rows[0]["idPosicao"]));
+                exemplar.Livro = new LivroDAL().seleciona(Convert.ToInt32(dt.Rows[0]["idLivro"]));
             }
 
             return exemplar; 
@@ -67,7 +67,7 @@ namespace Engenharia2.DAL
         public string alterar(Exemplar exemplar)
         {
             string msg = "Falha ao Alterar Exemplar";
-            string sql = "UPDATE exemplar SET Posicao_idPosicao=@idPosicao, Livro_idLivro=@idLivro WHERE idExemplar=@idExemplar";
+            string sql = "UPDATE exemplar SET idPosicao=@idPosicao, idLivro=@idLivro WHERE idExemplar=@idExemplar";
 
             _bd.LimparParametros();
             _bd.AdicionarParametro("@idExemplar", exemplar.Id.ToString());
@@ -94,7 +94,7 @@ namespace Engenharia2.DAL
             Exemplar exemplar= null;
             for (int i = 0; i < cont; i++)
             {
-                sql = "SELECT * FROM exemplar WHERE Livro_idLivro = @idLivro";
+                sql = "SELECT * FROM exemplar WHERE idLivro = @idLivro";
                 _bd.LimparParametros();
                 _bd.AdicionarParametro("@idLivro", livros[i].Id.ToString());
                 dt[i] = _bd.ExecutarSelect(sql);
@@ -103,8 +103,8 @@ namespace Engenharia2.DAL
                     exemplar = new Exemplar()
                     {
                         Id = Convert.ToInt32(dt[i].Rows[0]["idExemplar"]),
-                        Livro = new LivroDAL().seleciona(Convert.ToInt32(dt[i].Rows[0]["Livro_idLivro"])),
-                        Posicao = new PosicaoDAL().obterPorID(Convert.ToInt32(dt[i].Rows[0]["Posicao_idPosicao"]))
+                        Livro = new LivroDAL().seleciona(Convert.ToInt32(dt[i].Rows[0]["idLivro"])),
+                        Posicao = new PosicaoDAL().obterPorID(Convert.ToInt32(dt[i].Rows[0]["idPosicao"]))
                     };
                     exemplares.Add(exemplar);
                 }
@@ -116,7 +116,7 @@ namespace Engenharia2.DAL
 
         public List<Exemplar> BuscaExemplaresNome(string nome)
         {
-            string sql = "SELECT Posicao_idPosicao,idExemplar,Livro_idLivro FROM exemplar INNER JOIN livro ON livro.idLivro = exemplar.Livro_idLivro where livro.Nome like '%"+nome+"%'";
+            string sql = "SELECT idPosicao,idExemplar,idLivro FROM exemplar INNER JOIN livro ON livro.idLivro = exemplar.idLivro where livro.Nome like '%"+nome+"%'";
             _bd.AbrirConexao();
             DataTable dt = _bd.ExecutarSelect(sql);
             _bd.FecharConexao();
@@ -126,8 +126,8 @@ namespace Engenharia2.DAL
                 var exemplar = new Exemplar()
                 {
                     Id = Convert.ToInt32(row["idExemplar"]),
-                    Posicao = new PosicaoDAL().obterPorID(Convert.ToInt32(row["Posicao_idPosicao"])),
-                    Livro = new LivroDAL().seleciona(Convert.ToInt32(row["Livro_idLivro"]))
+                    Posicao = new PosicaoDAL().obterPorID(Convert.ToInt32(row["idPosicao"])),
+                    Livro = new LivroDAL().seleciona(Convert.ToInt32(row["idLivro"]))
                 };
                 exemplares.Add(exemplar);
             }
@@ -153,8 +153,8 @@ namespace Engenharia2.DAL
                     exemplar = new Exemplar()
                     {
                         Id = Convert.ToInt32(dt[i].Rows[0]["idExemplar"]),
-                        Livro = new LivroDAL().seleciona(Convert.ToInt32(dt[i].Rows[0]["Livro_idLivro"])),
-                        Posicao = new PosicaoDAL().obterPorID(Convert.ToInt32(dt[i].Rows[0]["Posicao_idPosicao"]))
+                        Livro = new LivroDAL().seleciona(Convert.ToInt32(dt[i].Rows[0]["idLivro"])),
+                        Posicao = new PosicaoDAL().obterPorID(Convert.ToInt32(dt[i].Rows[0]["idPosicao"]))
                     };
                     exemplares.Add(exemplar);
                 }
@@ -175,8 +175,8 @@ namespace Engenharia2.DAL
                 var exemplar = new Exemplar()
                 {
                     Id = Convert.ToInt32(row["idExemplar"]),
-                    Posicao = new PosicaoDAL().obterPorID(Convert.ToInt32(row["Posicao_idPosicao"])),
-                    Livro = new LivroDAL().seleciona(Convert.ToInt32(row["Livro_idLivro"]))
+                    Posicao = new PosicaoDAL().obterPorID(Convert.ToInt32(row["idPosicao"])),
+                    Livro = new LivroDAL().seleciona(Convert.ToInt32(row["idLivro"]))
                 };
                 exemplares.Add(exemplar);
             }

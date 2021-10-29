@@ -14,7 +14,7 @@ namespace Engenharia2.DAL
         public string gravar(Reserva reserva)
         {
             string msg = "Falha ao Gravar Reserva";
-            string sql = "INSERT INTO reserva (DataInicio, DataFim, Leitor_idLeitor, Livro_idLivro, Status) VALUES(@datainicio, @datafim, @idleitor, @idlivro, @status) ";
+            string sql = "INSERT INTO reserva (DataInicio, DataFim, idLeitor, idLivro, Status) VALUES(@datainicio, @datafim, @idleitor, @idlivro, @status) ";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@datainicio", Convert.ToString(reserva.DataInicio));
             _bd.AdicionarParametro("@datafim", Convert.ToString(reserva.DataFim));
@@ -22,7 +22,7 @@ namespace Engenharia2.DAL
             _bd.AdicionarParametro("@idlivro", Convert.ToString(reserva.Livro.Id));
             _bd.AdicionarParametro("@status", Convert.ToString(reserva.Status));
 
-            string sqlBusca = "SELECT * FROM reserva WHERE Leitor_idLeitor =" + reserva.Leitor.Id + " AND Livro_idLivro = " + reserva.Livro.Id;
+            string sqlBusca = "SELECT * FROM reserva WHERE idLeitor =" + reserva.Leitor.Id + " AND idLivro = " + reserva.Livro.Id;
             //_bd.AdicionarParametro("@idleitorBusca", Convert.ToString(reserva.Leitor.Id));
            // _bd.AdicionarParametro("@idlivroBusca", Convert.ToString(reserva.Livro.Id));
 
@@ -66,7 +66,7 @@ namespace Engenharia2.DAL
         public string finaliza(int idLeitor, int idLivro)
         {
             string msg = "Falha ao Finalizar a Reserva";
-            string sql = "UPDATE reserva SET Status=@finalizar WHERE Status='Em Aberto' AND Leitor_idLeitor =" + idLeitor + " AND Livro_idLivro=" + idLivro;
+            string sql = "UPDATE reserva SET Status=@finalizar WHERE Status='Em Aberto' AND idLeitor =" + idLeitor + " AND idLivro=" + idLivro;
             _bd.LimparParametros();
             _bd.AdicionarParametro("@finalizar", "Finalizado");
 
@@ -83,7 +83,7 @@ namespace Engenharia2.DAL
 
         public int qtdReservada(int livroId)
         {
-            string sql = "SELECT * FROM reserva WHERE Status='Em Aberto' AND Livro_idLivro = @livroid";
+            string sql = "SELECT * FROM reserva WHERE Status='Em Aberto' AND idLivro = @livroid";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@livroid", Convert.ToString(livroId));
 
@@ -95,7 +95,7 @@ namespace Engenharia2.DAL
 
         public bool isReservado(int leitorid, int livroid)
         {
-            string sql = "SELECT * FROM reserva WHERE Leitor_idLeitor = @leitorid AND Livro_idLivro = @livroid";
+            string sql = "SELECT * FROM reserva WHERE idLeitor = @leitorid AND idLivro = @livroid";
             _bd.LimparParametros();
             _bd.AdicionarParametro("@leitorid", Convert.ToString(leitorid));
             _bd.AdicionarParametro("@livroid", Convert.ToString(livroid));
@@ -123,7 +123,7 @@ namespace Engenharia2.DAL
             {
                 var idLeitorInt = 0;
                 idLeitorInt = Convert.ToInt32(dtLeitor.Rows[0]["IdLeitor"]);
-                sql = "SELECT * FROM reserva WHERE Leitor_idLeitor = "+ idLeitorInt + " AND Status = '" + status + "'";
+                sql = "SELECT * FROM reserva WHERE idLeitor = "+ idLeitorInt + " AND Status = '" + status + "'";
             }
             else
             {
@@ -138,8 +138,8 @@ namespace Engenharia2.DAL
                     Id = Convert.ToInt32(row["idReserva"]),
                     DataInicio = Convert.ToDateTime(row["DataInicio"]),
                     DataFim = Convert.ToDateTime(row["DataFim"]),
-                    Leitor = new LeitorDAL().BuscaLeitorPorId(Convert.ToInt32(row["Leitor_IdLeitor"])),
-                    Livro = new LivroDAL().seleciona(Convert.ToInt32(row["Livro_IdLivro"])),
+                    Leitor = new LeitorDAL().BuscaLeitorPorId(Convert.ToInt32(row["idLeitor"])),
+                    Livro = new LivroDAL().seleciona(Convert.ToInt32(row["idLivro"])),
                     Status = row["Status"].ToString()
                 };
                 reservas.Add(reserva);
@@ -165,8 +165,8 @@ namespace Engenharia2.DAL
                     Id = Convert.ToInt32(row["idReserva"]),
                     DataInicio = Convert.ToDateTime(row["DataInicio"]),
                     DataFim = Convert.ToDateTime(row["DataFim"]),
-                    Leitor = new LeitorDAL().BuscaLeitorPorId(Convert.ToInt32(row["Leitor_IdLeitor"])),
-                    Livro = new LivroDAL().seleciona(Convert.ToInt32(row["Livro_IdLivro"])),
+                    Leitor = new LeitorDAL().BuscaLeitorPorId(Convert.ToInt32(row["idLeitor"])),
+                    Livro = new LivroDAL().seleciona(Convert.ToInt32(row["idLivro"])),
                     Status = row["Status"].ToString()
                 };
                 reservas.Add(reserva);
